@@ -14,6 +14,5 @@ export class AllContactsPage implements OnInit {
 
   ngOnInit() {
     this.contacts = this.contactsService.getTestContacts();
-    this.contacts.sort((contactA, contactB) => (contactA.firstName > contactB.firstName) ? 1 : -1);
   }
 }

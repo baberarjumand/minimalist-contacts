@@ -19,6 +19,23 @@ export class ContactDetailPage implements OnInit {
 
   ngOnInit() {
     this.contactId = this.activatedRoute.snapshot.paramMap.get("id");
-    this.currentContact = this.contactsService.getContactById(this.contactId)[0];
+    this.currentContact = this.contactsService.getContactById(
+      this.contactId
+    )[0];
+  }
+
+  callNumber() {
+    // TODO
+    console.log("call feature to be implemented");
+  }
+
+  messageNumber() {
+    // TODO
+    console.log("messaging feature to be implemented");
+  }
+
+  emailContact() {
+    // TODO
+    console.log("email feature to be implemented");
   }
 }

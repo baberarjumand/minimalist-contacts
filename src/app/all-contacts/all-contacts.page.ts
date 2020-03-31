@@ -1,4 +1,6 @@
 import { Component, OnInit } from "@angular/core";
+import { ContactsService } from '../services/contacts.service';
+import { Contact } from '../model/contact.model';
 
 @Component({
   selector: "app-all-contacts",
@@ -6,7 +8,12 @@ import { Component, OnInit } from "@angular/core";
   styleUrls: ["./all-contacts.page.scss"]
 })
 export class AllContactsPage implements OnInit {
-  constructor() {}
+  contacts: Contact[];
+  
+  constructor(private contactsService: ContactsService) {}
 
-  ngOnInit() {}
+  ngOnInit() {
+    this.contacts = this.contactsService.getTestContacts();
+    this.contacts.sort((contactA, contactB) => (contactA.firstName > contactB.firstName) ? 1 : -1);
+  }
 }

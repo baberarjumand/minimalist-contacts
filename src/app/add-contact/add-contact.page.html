@@ -1,10 +1,46 @@
 <ion-header [translucent]="true">
   <ion-toolbar>
     <ion-buttons slot="start">
-      <ion-back-button></ion-back-button>
+      <ion-back-button defaultHref="/"></ion-back-button>
     </ion-buttons>
-    <ion-title>Add a New Contact</ion-title>
+    <ion-title>Enter New Contact Details</ion-title>
   </ion-toolbar>
 </ion-header>
 
-<ion-content> </ion-content>
+<ion-content>
+  <ion-grid fixed>
+    <ion-row class="ion-padding">
+      <ion-col size-md="8" offset-md="2">
+        <form [formGroup]="addForm" (ngSubmit)="onSubmit()">
+          <ion-item>
+            <ion-label position="floating">First Name</ion-label>
+            <ion-input
+              type="text"
+              formControlName="firstName"
+              required
+            ></ion-input>
+          </ion-item>
+          <ion-item>
+            <ion-label position="floating">Last Name</ion-label>
+            <ion-input type="text" formControlName="lastName"></ion-input>
+          </ion-item>
+          <ion-item>
+            <ion-label position="floating">Contact Number</ion-label>
+            <ion-input type="tel" formControlName="contactNumber"></ion-input>
+          </ion-item>
+          <ion-item>
+            <ion-label position="floating">Email</ion-label>
+            <ion-input type="email" formControlName="email"></ion-input>
+          </ion-item>
+          <ion-button
+            type="submit"
+            [disabled]="!addForm.valid"
+            expand="block"
+            class="ion-padding"
+            >Add Contact</ion-button
+          >
+        </form>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+</ion-content>

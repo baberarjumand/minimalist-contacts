@@ -6,8 +6,12 @@
     <ion-title>My Contacts</ion-title>
     <ion-buttons slot="primary">
       <ion-button [routerLink]="['/', 'add-contact']">
-        <ion-icon name="add"></ion-icon>
-        <ion-label>New Contact</ion-label>
+        <ion-icon
+          [ios]="'add-outline'"
+          [md]="'add-sharp'"
+          color="primary"
+        ></ion-icon>
+        <ion-label color="primary">Add</ion-label>
       </ion-button>
     </ion-buttons>
   </ion-toolbar>

@@ -5,9 +5,9 @@ import { Contact } from "../model/contact.model";
   providedIn: "root"
 })
 export class ContactsService {
-  constructor() {}
+  savedContacts: Contact[];
 
-  getTestContacts() {
+  constructor() {
     const contacts = [];
     contacts.push(
       new Contact(
@@ -29,7 +29,7 @@ export class ContactsService {
     );
     contacts.push({
       id: "234",
-      firstName: "FName234",
+      firstName: "OName234",
       email: "fname234@email.com"
     });
     contacts.push(
@@ -43,20 +43,74 @@ export class ContactsService {
     );
     contacts.push({
       id: "973",
-      firstName: "FName973",
+      firstName: "RName973",
       contactNumber: "9731234973"
     });
-    return this.sortContacts(contacts);
+    this.savedContacts = contacts;
+    this.savedContacts = this.sortContacts(this.savedContacts);
   }
 
-  getContactById(contactId: string) {
-    const contacts = this.getTestContacts();
-    return contacts.filter(contact => contact.id === contactId);
+  // getTestContacts() {
+  //   return this.savedContacts;
+  // }
+
+  getAllContacts() {
+    return this.savedContacts;
   }
 
-  sortContacts(contacts: Contact[]): Contact[] {
+  addContact(addFormData) {
+    // console.log(addFormData);
+    let tempContact: Contact = {
+      id: this.generateUniqueId(),
+      firstName: this.capitalizeFirstLetter(addFormData.firstName)
+    };
+    if (addFormData.lastName !== "") {
+      tempContact.lastName = this.capitalizeFirstLetter(addFormData.lastName);
+    }
+    if (addFormData.contactNumber !== "") {
+      tempContact.contactNumber = addFormData.contactNumber;
+    }
+    if (addFormData.email !== "") {
+      tempContact.email = addFormData.email;
+    }
+    // console.log(tempContact);
+    this.savedContacts.push(tempContact);
+    this.savedContacts = this.sortContacts(this.savedContacts);
+  }
+
+  // this function starts a counter at the current length of getAllContacts()
+  // it increments the counter, and then checks if that id exists in current list of contacts
+  // if it does, it increments and repeats the last step
+  // if it doesn't, it returns this counter value
+  // this primitive method ensures uniqueIds for a small number of contacts
+  // this method will not be used once firebase backend will be able to assign uuids automatically
+  private generateUniqueId() {
+    let uniqueId = this.getAllContacts().length;
+    do {
+      uniqueId++;
+    } while (this.getContactById(uniqueId) !== undefined);
+    return uniqueId.toString();
+  }
+
+  private capitalizeFirstLetter(s: string): string {
+    if (typeof s !== "string") return "";
+    return (s.charAt(0).toUpperCase() + s.slice(1)).toString();
+  }
+
+  getContactById(contactId: string | Number) {
+    if (typeof contactId === "number") {
+      contactId = contactId.toString();
+    }
+    const contacts = this.savedContacts;
+    return contacts.filter(contact => contact.id === contactId)[0];
+  }
+
+  private sortContacts(contacts): Contact[] {
     return contacts.sort((contactA, contactB) =>
       contactA.firstName > contactB.firstName ? 1 : -1
     );
+    // return this.savedContacts.sort((contactA, contactB) =>
+    //   contactA.firstName > contactB.firstName ? 1 : -1
+    // );
   }
 }

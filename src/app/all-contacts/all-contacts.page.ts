@@ -13,6 +13,6 @@ export class AllContactsPage implements OnInit {
   constructor(private contactsService: ContactsService) {}
 
   ngOnInit() {
-    this.contacts = this.contactsService.getTestContacts();
+    this.contacts = this.contactsService.getAllContacts();
   }
 }

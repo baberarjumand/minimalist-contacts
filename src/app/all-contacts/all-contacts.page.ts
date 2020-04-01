@@ -1,6 +1,6 @@
 import { Component, OnInit } from "@angular/core";
-import { ContactsService } from '../services/contacts.service';
-import { Contact } from '../model/contact.model';
+import { ContactsService } from "../services/contacts.service";
+import { Contact } from "../model/contact.model";
 
 @Component({
   selector: "app-all-contacts",
@@ -9,7 +9,7 @@ import { Contact } from '../model/contact.model';
 })
 export class AllContactsPage implements OnInit {
   contacts: Contact[];
-  
+
   constructor(private contactsService: ContactsService) {}
 
   ngOnInit() {

@@ -4,14 +4,32 @@
       <ion-menu-button></ion-menu-button>
     </ion-buttons>
     <ion-title>My Contacts</ion-title>
+    <ion-buttons slot="primary">
+      <ion-button [routerLink]="['/', 'add-contact']">
+        <ion-icon name="add"></ion-icon>
+        <ion-label>New Contact</ion-label>
+      </ion-button>
+    </ion-buttons>
   </ion-toolbar>
 </ion-header>
 
 <ion-content>
-  <ion-list class="ion-padding" *ngFor="let c of contacts" lines="none">
-    <ion-item [routerLink]="['/', 'contact-detail', c.id]">
-      <ion-icon slot="start" name="person"></ion-icon>
-      <ion-label>{{ c.firstName }} {{ c.lastName }}</ion-label>
-    </ion-item>
-  </ion-list>
+  <ion-grid fixed class="ion-no-padding">
+    <ion-row>
+      <ion-col>
+        <ion-list
+          *ngFor="let c of contacts"
+          lines="none"
+          class="ion-padding"
+          size-md="8"
+          offset-md="2"
+        >
+          <ion-item [routerLink]="['/', 'contact-detail', c.id]">
+            <ion-icon slot="start" name="person"></ion-icon>
+            <ion-label>{{ c.firstName }} {{ c.lastName }}</ion-label>
+          </ion-item>
+        </ion-list>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
 </ion-content>

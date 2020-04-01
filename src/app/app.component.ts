@@ -43,20 +43,20 @@ export class AppComponent implements OnInit {
     //   icon: "warning"
     // },
     {
-      title: "All Contacts",
+      title: "View Contacts",
       url: "/all-contacts",
       icon: "people"
     },
-    {
-      title: "Search Contacts",
-      url: "/search-contacts",
-      icon: "search"
-    },
-    {
-      title: "Add Contact",
-      url: "/add-contact",
-      icon: "person-add"
-    },
+    // {
+    //   title: "Search Contacts",
+    //   url: "/search-contacts",
+    //   icon: "search"
+    // },
+    // {
+    //   title: "Add Contact",
+    //   url: "/add-contact",
+    //   icon: "person-add"
+    // },
     {
       title: "My Account Settings",
       url: "/my-settings",

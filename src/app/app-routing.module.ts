@@ -19,13 +19,13 @@ const routes: Routes = [
         m => m.AllContactsPageModule
       )
   },
-  {
-    path: "search-contacts",
-    loadChildren: () =>
-      import("./search-contacts/search-contacts.module").then(
-        m => m.SearchContactsPageModule
-      )
-  },
+  // {
+  //   path: "search-contacts",
+  //   loadChildren: () =>
+  //     import("./search-contacts/search-contacts.module").then(
+  //       m => m.SearchContactsPageModule
+  //     )
+  // },
   {
     path: "add-contact",
     loadChildren: () =>

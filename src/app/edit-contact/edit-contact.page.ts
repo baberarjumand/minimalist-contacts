@@ -23,6 +23,9 @@ export class EditContactPage implements OnInit {
 
   ngOnInit() {
     this.contactId = this.activatedRoute.snapshot.paramMap.get("id");
+    if (!this.contactId) {
+      this.router.navigateByUrl("");
+    }
     this.currentContact = this.contactsService.getContactById(this.contactId);
     if (this.currentContact) {
       this.editFormGroup = this.formBuilder.group({
@@ -39,9 +42,13 @@ export class EditContactPage implements OnInit {
         email: [this.currentContact.email, Validators.email]
       });
     } else {
-      this.router.navigateByUrl('/');
+      this.router.navigateByUrl("");
     }
   }
 
-  onSubmit() {}
+  onSubmit() {
+    this.contactsService.updateContact(this.editFormGroup.value);
+    this.editFormGroup.reset();
+    this.router.navigateByUrl("/contact-detail/" + this.currentContact.id);
+  }
 }

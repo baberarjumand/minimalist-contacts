@@ -113,4 +113,8 @@ export class ContactsService {
     //   contactA.firstName > contactB.firstName ? 1 : -1
     // );
   }
+
+  updateContact(editFormData) {
+    // TODO
+  }
 }

@@ -1,5 +1,5 @@
 import { Component, OnInit } from "@angular/core";
-import { ActivatedRoute } from "@angular/router";
+import { ActivatedRoute, Router } from "@angular/router";
 import { Contact } from "../model/contact.model";
 import { ContactsService } from "../services/contacts.service";
 
@@ -14,12 +14,19 @@ export class ContactDetailPage implements OnInit {
 
   constructor(
     private activatedRoute: ActivatedRoute,
-    private contactsService: ContactsService
+    private contactsService: ContactsService,
+    private router: Router
   ) {}
 
   ngOnInit() {
     this.contactId = this.activatedRoute.snapshot.paramMap.get("id");
+    if (!this.contactId) {
+      this.router.navigateByUrl("");
+    }
     this.currentContact = this.contactsService.getContactById(this.contactId);
+    if (!this.currentContact) {
+      this.router.navigateByUrl("");
+    }
   }
 
   callNumber() {

@@ -38,6 +38,6 @@ export class AddContactPage implements OnInit {
   onSubmit() {
     this.contactsService.addContact(this.addForm.value);
     this.addForm.reset();
-    this.router.navigateByUrl("/");
+    this.router.navigateByUrl("");
   }
 }

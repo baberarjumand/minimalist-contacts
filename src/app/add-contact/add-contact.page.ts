@@ -11,19 +11,7 @@ import { ContactsService } from "../services/contacts.service";
 })
 export class AddContactPage implements OnInit {
   private addedContact: Contact;
-  addForm = this.formBuilder.group({
-    firstName: ["", Validators.required],
-    lastName: [""],
-    contactNumber: [
-      "",
-      Validators.compose([
-        Validators.pattern("^[0-9]*$"),
-        Validators.minLength(7),
-        Validators.maxLength(10)
-      ])
-    ],
-    email: ["", Validators.email]
-  });
+  addForm: FormGroup;
 
   constructor(
     private formBuilder: FormBuilder,
@@ -31,7 +19,21 @@ export class AddContactPage implements OnInit {
     private contactsService: ContactsService
   ) {}
 
-  ngOnInit() {}
+  ngOnInit() {
+    this.addForm = this.formBuilder.group({
+      firstName: ["", Validators.required],
+      lastName: [""],
+      contactNumber: [
+        "",
+        Validators.compose([
+          Validators.pattern("^[0-9]*$"),
+          Validators.minLength(7),
+          Validators.maxLength(10)
+        ])
+      ],
+      email: ["", Validators.email]
+    });
+  }
 
   onSubmit() {
     this.contactsService.addContact(this.addForm.value);

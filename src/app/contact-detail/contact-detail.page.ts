@@ -9,8 +9,8 @@ import { ContactsService } from "../services/contacts.service";
   styleUrls: ["./contact-detail.page.scss"]
 })
 export class ContactDetailPage implements OnInit {
-  contactId: string;
-  currentContact: Contact;
+  private contactId: string;
+  private currentContact: Contact;
 
   constructor(
     private activatedRoute: ActivatedRoute,

@@ -4,6 +4,16 @@
       <ion-back-button defaultHref="/"></ion-back-button>
     </ion-buttons>
     <ion-title>Contact Details</ion-title>
+    <ion-buttons slot="primary">
+      <ion-button [routerLink]="['/', 'edit-contact', currentContact.id]">
+        <ion-icon
+          [ios]="'create-outline'"
+          [md]="'create-sharp'"
+          color="primary"
+        ></ion-icon>
+        <ion-label color="primary">Edit</ion-label>
+      </ion-button>
+    </ion-buttons>
   </ion-toolbar>
 </ion-header>
 
@@ -97,6 +107,7 @@
                   expand="block"                  
                   size="large"
                   color="light"
+                  [routerLink]="['/', 'edit-contact', currentContact.id]"
                 >
                   <ion-icon
                     [ios]="'person-add-outline'"

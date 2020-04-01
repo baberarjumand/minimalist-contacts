@@ -1,0 +1,46 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="/"></ion-back-button>
+    </ion-buttons>
+    <ion-title>Edit Contact</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-grid fixed>
+    <ion-row class="ion-padding">
+      <ion-col size-md="8" offset-md="2">
+        <form [formGroup]="editFormGroup" (ngSubmit)="onSubmit()">
+          <ion-item>
+            <ion-label position="floating">First Name</ion-label>
+            <ion-input
+              type="text"
+              formControlName="firstName"
+              required
+            ></ion-input>
+          </ion-item>
+          <ion-item>
+            <ion-label position="floating">Last Name</ion-label>
+            <ion-input type="text" formControlName="lastName"></ion-input>
+          </ion-item>
+          <ion-item>
+            <ion-label position="floating">Contact Number</ion-label>
+            <ion-input type="tel" formControlName="contactNumber"></ion-input>
+          </ion-item>
+          <ion-item>
+            <ion-label position="floating">Email</ion-label>
+            <ion-input type="email" formControlName="email"></ion-input>
+          </ion-item>
+          <ion-button
+            type="submit"
+            [disabled]="!editFormGroup.valid"
+            expand="block"
+            class="ion-padding"
+            >Save Changes</ion-button
+          >
+        </form>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+</ion-content>

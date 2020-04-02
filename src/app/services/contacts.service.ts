@@ -73,7 +73,8 @@ export class ContactsService {
     if (addFormData.email !== "") {
       tempContact.email = addFormData.email;
     }
-    // console.log(tempContact);
+    console.log("Adding contact:");
+    console.log(tempContact);
     this.savedContacts.push(tempContact);
     this.savedContacts = this.sortContacts(this.savedContacts);
   }
@@ -115,10 +116,15 @@ export class ContactsService {
   }
 
   updateContact(contactId, editFormData) {
-    const updateIndex = this.savedContacts.findIndex(c => c.id === contactId);
-    if (!updateIndex) {
-      return;
-    }
+    const updateIndex = this.savedContacts.findIndex(
+      c => c.id === contactId.toString()
+    );
+    // if (!updateIndex) {
+    //   return;
+    // }
+    // console.log("Updating contact id: " + updateIndex);
+    // console.log("Updating contact:");
+    // console.log(this.savedContacts[updateIndex]);
 
     this.savedContacts[updateIndex].firstName = this.capitalizeFirstLetter(
       editFormData.firstName
@@ -128,6 +134,8 @@ export class ContactsService {
     );
     this.savedContacts[updateIndex].contactNumber = editFormData.contactNumber;
     this.savedContacts[updateIndex].email = editFormData.email;
+    // console.log("Updated contact:");
+    // console.log(this.savedContacts[updateIndex]);
 
     this.savedContacts = this.sortContacts(this.savedContacts);
   }

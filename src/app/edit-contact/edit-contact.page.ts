@@ -63,7 +63,7 @@ export class EditContactPage implements OnInit {
 
   onSubmit() {
     this.contactsService.updateContact(this.currentContact.id, this.editFormGroup.value);
-    this.editFormGroup.reset();
+    // this.editFormGroup.reset();
     this.router.navigateByUrl("/contact-detail/" + this.currentContact.id);
   }
 }

@@ -19,7 +19,7 @@
 
 <ion-content>
   <ion-grid fixed class="ion-no-padding">
-    <ion-row>
+    <ion-row *ngIf="this.contacts">
       <ion-col>
         <ion-list
           *ngFor="let c of contacts"
@@ -33,6 +33,23 @@
             <ion-label>{{ c.firstName }} {{ c.lastName }}</ion-label>
           </ion-item>
         </ion-list>
+      </ion-col>
+    </ion-row>
+    <ion-row *ngIf="contacts.length === 0 || !this.contacts" class="ion-padding">
+      <ion-col size-md="6" offset-md="3">
+        <ion-button
+          expand="block"
+          [routerLink]="['/', 'add-contact']"
+          size="large"
+          color="primary"          
+        >
+          <ion-icon
+            [ios]="'person-add-outline'"
+            [md]="'person-add-sharp'"
+            slot="start"
+          ></ion-icon>
+          Add Contact
+        </ion-button>
       </ion-col>
     </ion-row>
   </ion-grid>

@@ -3,6 +3,7 @@ import { ActivatedRoute, Router } from "@angular/router";
 import { ContactsService } from "../services/contacts.service";
 import { Contact } from "../model/contact.model";
 import { FormBuilder, FormGroup, Validators } from "@angular/forms";
+import { AlertController } from "@ionic/angular";
 
 @Component({
   selector: "app-edit-contact",
@@ -18,7 +19,8 @@ export class EditContactPage implements OnInit {
     private activatedRoute: ActivatedRoute,
     private contactsService: ContactsService,
     private formBuilder: FormBuilder,
-    private router: Router
+    private router: Router,
+    private alertController: AlertController
   ) {}
 
   ngOnInit() {
@@ -55,15 +57,40 @@ export class EditContactPage implements OnInit {
         ],
         email: [this.currentContact.email, Validators.email]
       });
-      // console.log(this.currentContact);      
+      // console.log(this.currentContact);
     } else {
       this.router.navigateByUrl("");
     }
   }
 
   onSubmit() {
-    this.contactsService.updateContact(this.currentContact.id, this.editFormGroup.value);
-    // this.editFormGroup.reset();
+    this.contactsService.updateContact(
+      this.currentContact.id,
+      this.editFormGroup.value
+    );
+    this.editFormGroup.reset();
     this.router.navigateByUrl("/contact-detail/" + this.currentContact.id);
+  }
+
+  async deleteContact() {
+    const alert = await this.alertController.create({
+      header: "Confirm Delete",
+      message: "Are you sure you want to delete this contact?",
+      buttons: [
+        {
+          text: "No",
+          role: "cancel"
+        },
+        {
+          text: "Yes",
+          handler: () => {
+            // console.log("Confirm delete contact id: " + this.currentContact.id);
+            this.contactsService.deleteContact(this.currentContact.id);
+            this.router.navigateByUrl("");
+          }
+        }
+      ]
+    });
+    await alert.present();
   }
 }

@@ -73,8 +73,8 @@ export class ContactsService {
     if (addFormData.email !== "") {
       tempContact.email = addFormData.email;
     }
-    console.log("Adding contact:");
-    console.log(tempContact);
+    // console.log("Adding contact:");
+    // console.log(tempContact);
     this.savedContacts.push(tempContact);
     this.savedContacts = this.sortContacts(this.savedContacts);
   }
@@ -119,9 +119,9 @@ export class ContactsService {
     const updateIndex = this.savedContacts.findIndex(
       c => c.id === contactId.toString()
     );
-    // if (!updateIndex) {
-    //   return;
-    // }
+    if (updateIndex < 0) {
+      return;
+    }
     // console.log("Updating contact id: " + updateIndex);
     // console.log("Updating contact:");
     // console.log(this.savedContacts[updateIndex]);
@@ -138,5 +138,16 @@ export class ContactsService {
     // console.log(this.savedContacts[updateIndex]);
 
     this.savedContacts = this.sortContacts(this.savedContacts);
+  }
+
+  deleteContact(contactId) {
+    const deleteIndex = this.savedContacts.findIndex(
+      c => c.id === contactId.toString()
+    );
+    if (deleteIndex < 0) {
+      return;
+    }
+
+    this.savedContacts.splice(deleteIndex, 1);
   }
 }

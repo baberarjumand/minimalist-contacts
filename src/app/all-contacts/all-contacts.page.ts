@@ -9,6 +9,7 @@ import { Contact } from "../model/contact.model";
 })
 export class AllContactsPage implements OnInit {
   contacts: Contact[];
+  randomBool = true;
 
   constructor(private contactsService: ContactsService) {}
 

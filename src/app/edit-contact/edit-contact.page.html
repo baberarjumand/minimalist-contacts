@@ -4,6 +4,16 @@
       <ion-back-button defaultHref="/"></ion-back-button>
     </ion-buttons>
     <ion-title>Edit Contact</ion-title>
+    <ion-buttons slot="primary">
+      <ion-button (click)="deleteContact()">
+        <ion-icon
+          [ios]="'trash-outline'"
+          [md]="'trash-sharp'"
+          color="danger"
+        ></ion-icon>
+        <ion-label color="danger">Delete</ion-label>
+      </ion-button>
+    </ion-buttons>
   </ion-toolbar>
 </ion-header>
 

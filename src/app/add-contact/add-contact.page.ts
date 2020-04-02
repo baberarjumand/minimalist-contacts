@@ -21,14 +21,27 @@ export class AddContactPage implements OnInit {
 
   ngOnInit() {
     this.addForm = this.formBuilder.group({
-      firstName: ["", Validators.required],
-      lastName: [""],
+      firstName: [
+        "",
+        Validators.compose([
+          Validators.required,
+          Validators.minLength(2),
+          Validators.maxLength(25)
+        ])
+      ],
+      lastName: [
+        "",
+        Validators.compose([          
+          Validators.minLength(2),
+          Validators.maxLength(25)
+        ])
+      ],
       contactNumber: [
         "",
         Validators.compose([
           Validators.pattern("^[0-9]*$"),
           Validators.minLength(7),
-          Validators.maxLength(10)
+          Validators.maxLength(14)
         ])
       ],
       email: ["", Validators.email]

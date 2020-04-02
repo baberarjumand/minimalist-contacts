@@ -26,11 +26,25 @@ export class EditContactPage implements OnInit {
     if (!this.contactId) {
       this.router.navigateByUrl("");
     }
+
     this.currentContact = this.contactsService.getContactById(this.contactId);
     if (this.currentContact) {
       this.editFormGroup = this.formBuilder.group({
-        firstName: [this.currentContact.firstName, Validators.required],
-        lastName: [this.currentContact.lastName],
+        firstName: [
+          this.currentContact.firstName,
+          Validators.compose([
+            Validators.required,
+            Validators.minLength(2),
+            Validators.maxLength(25)
+          ])
+        ],
+        lastName: [
+          this.currentContact.lastName,
+          Validators.compose([
+            Validators.minLength(2),
+            Validators.maxLength(25)
+          ])
+        ],
         contactNumber: [
           this.currentContact.contactNumber,
           Validators.compose([
@@ -41,13 +55,14 @@ export class EditContactPage implements OnInit {
         ],
         email: [this.currentContact.email, Validators.email]
       });
+      // console.log(this.currentContact);      
     } else {
       this.router.navigateByUrl("");
     }
   }
 
   onSubmit() {
-    this.contactsService.updateContact(this.editFormGroup.value);
+    this.contactsService.updateContact(this.currentContact.id, this.editFormGroup.value);
     this.editFormGroup.reset();
     this.router.navigateByUrl("/contact-detail/" + this.currentContact.id);
   }

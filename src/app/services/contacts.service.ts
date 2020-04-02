@@ -114,7 +114,21 @@ export class ContactsService {
     // );
   }
 
-  updateContact(editFormData) {
-    // TODO
+  updateContact(contactId, editFormData) {
+    const updateIndex = this.savedContacts.findIndex(c => c.id === contactId);
+    if (!updateIndex) {
+      return;
+    }
+
+    this.savedContacts[updateIndex].firstName = this.capitalizeFirstLetter(
+      editFormData.firstName
+    );
+    this.savedContacts[updateIndex].lastName = this.capitalizeFirstLetter(
+      editFormData.lastName
+    );
+    this.savedContacts[updateIndex].contactNumber = editFormData.contactNumber;
+    this.savedContacts[updateIndex].email = editFormData.email;
+
+    this.savedContacts = this.sortContacts(this.savedContacts);
   }
 }

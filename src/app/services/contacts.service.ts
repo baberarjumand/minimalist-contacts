@@ -9,15 +9,15 @@ export class ContactsService {
 
   constructor() {
     const contacts = [];
-    contacts.push(
-      new Contact(
-        "2",
-        "FName2",
-        "LName2",
-        "5678901234",
-        "fname0.lname0@email.com"
-      )
-    );
+    // contacts.push(
+    //   new Contact(
+    //     "2",
+    //     "FName2",
+    //     "LName2",
+    //     "5678901234",
+    //     "fname0.lname0@email.com"
+    //   )
+    // );
     contacts.push(
       new Contact(
         "0",
@@ -32,15 +32,15 @@ export class ContactsService {
       firstName: "OName234",
       email: "fname234@email.com"
     });
-    contacts.push(
-      new Contact(
-        "1",
-        "FName1",
-        "LName1",
-        "9876543210",
-        "fname1.lname1@email.com"
-      )
-    );
+    // contacts.push(
+    //   new Contact(
+    //     "1",
+    //     "FName1",
+    //     "LName1",
+    //     "9876543210",
+    //     "fname1.lname1@email.com"
+    //   )
+    // );
     contacts.push({
       id: "973",
       firstName: "RName973",

@@ -58,7 +58,11 @@ const routes: Routes = [
       import("./edit-contact/edit-contact.module").then(
         m => m.EditContactPageModule
       )
+  },  {
+    path: 'test-page',
+    loadChildren: () => import('./test-page/test-page.module').then( m => m.TestPagePageModule)
   }
+
 ];
 
 @NgModule({

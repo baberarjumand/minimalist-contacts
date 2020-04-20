@@ -12,6 +12,7 @@ import { AppRoutingModule } from "./app-routing.module";
 import { AngularFireModule } from "@angular/fire";
 import { AngularFirestoreModule } from "@angular/fire/firestore";
 import { firebaseConfiguration } from 'src/environments/environment';
+import { ContactResolver } from './services/contact.resolver';
 
 @NgModule({
     declarations: [AppComponent],
@@ -27,6 +28,7 @@ import { firebaseConfiguration } from 'src/environments/environment';
         StatusBar,
         SplashScreen,
         { provide: RouteReuseStrategy, useClass: IonicRouteStrategy },
+        ContactResolver
     ],
     bootstrap: [AppComponent],
 })

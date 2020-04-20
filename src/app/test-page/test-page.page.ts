@@ -61,7 +61,7 @@ export class TestPagePage implements OnInit {
             });
     }
 
-    getAllRecords(): Observable<any> {
+    getAllRecords(): Observable<Record[]> {
         return this.db
             .collection("sampleCollection")
             .snapshotChanges()

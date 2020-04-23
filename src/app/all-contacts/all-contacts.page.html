@@ -21,27 +21,28 @@
   <ion-grid fixed class="ion-no-padding">
     <ion-row *ngIf="this.contacts.length > 0">
       <ion-col>
-        <ion-list
-          *ngFor="let c of contacts"
-          lines="none"
-          class="ion-padding"
-          size-md="8"
-          offset-md="2"
-        >
-          <ion-item [routerLink]="['/', 'contact-detail', c.id]">
+        <ion-list lines="none" class="ion-padding" size-md="8" offset-md="2">
+          <ion-item
+            *ngFor="let c of contacts"
+            [routerLink]="['/', 'contact-detail', c.id]"
+            class="ion-padding"
+          >
             <ion-icon slot="start" name="person"></ion-icon>
             <ion-label>{{ c.firstName }} {{ c.lastName }}</ion-label>
           </ion-item>
         </ion-list>
       </ion-col>
     </ion-row>
-    <ion-row *ngIf="contacts.length === 0 || !this.contacts" class="ion-padding">
+    <ion-row
+      *ngIf="contacts.length === 0 || !this.contacts"
+      class="ion-padding"
+    >
       <ion-col size-md="6" offset-md="3">
         <ion-button
           expand="block"
           (click)="instaAddRandomContacts()"
           size="large"
-          color="light"          
+          color="light"
         >
           <ion-icon
             [ios]="'person-add-outline'"
@@ -54,7 +55,7 @@
           expand="block"
           [routerLink]="['/', 'add-contact']"
           size="large"
-          color="light"          
+          color="light"
         >
           <ion-icon
             [ios]="'person-add-outline'"

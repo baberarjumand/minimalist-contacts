@@ -22,7 +22,11 @@
     <ion-row>
       <ion-col size-md="8" offset-md="2">
         <ion-card-header class="ion-text-center">
-          <ion-icon [ios]="'person-outline'" [md]="'person-sharp'" size="large"></ion-icon>
+          <ion-icon
+            [ios]="'person-outline'"
+            [md]="'person-sharp'"
+            size="large"
+          ></ion-icon>
           <ion-card-title
             >{{currentContact.firstName}}
             {{currentContact.lastName}}</ion-card-title
@@ -101,10 +105,12 @@
                 </ion-button>
               </ion-col>
             </ion-row>
-            <ion-row *ngIf="!(currentContact.email && currentContact.contactNumber)">
+            <ion-row
+              *ngIf="!(currentContact.email && currentContact.contactNumber)"
+            >
               <ion-col>
                 <ion-button
-                  expand="block"                  
+                  expand="block"
                   size="large"
                   color="light"
                   [routerLink]="['/', 'edit-contact', currentContact.id]"

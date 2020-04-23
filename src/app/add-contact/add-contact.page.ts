@@ -7,7 +7,7 @@ import { ContactsService } from "../services/contacts.service";
 @Component({
   selector: "app-add-contact",
   templateUrl: "./add-contact.page.html",
-  styleUrls: ["./add-contact.page.scss"]
+  styleUrls: ["./add-contact.page.scss"],
 })
 export class AddContactPage implements OnInit {
   private addedContact: Contact;
@@ -26,25 +26,22 @@ export class AddContactPage implements OnInit {
         Validators.compose([
           Validators.required,
           Validators.minLength(2),
-          Validators.maxLength(25)
-        ])
+          Validators.maxLength(25),
+        ]),
       ],
       lastName: [
         "",
-        Validators.compose([          
-          Validators.minLength(2),
-          Validators.maxLength(25)
-        ])
+        Validators.compose([Validators.minLength(2), Validators.maxLength(25)]),
       ],
       contactNumber: [
         "",
         Validators.compose([
           Validators.pattern("^[0-9]*$"),
           Validators.minLength(7),
-          Validators.maxLength(14)
-        ])
+          Validators.maxLength(14),
+        ]),
       ],
-      email: ["", Validators.email]
+      email: ["", Validators.email],
     });
   }
 

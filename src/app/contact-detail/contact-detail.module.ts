@@ -13,8 +13,8 @@ import { ContactDetailPage } from './contact-detail.page';
     CommonModule,
     FormsModule,
     IonicModule,
-    ContactDetailPageRoutingModule
+    ContactDetailPageRoutingModule,
   ],
-  declarations: [ContactDetailPage]
+  declarations: [ContactDetailPage],
 })
 export class ContactDetailPageModule {}

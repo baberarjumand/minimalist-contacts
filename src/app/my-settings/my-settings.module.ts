@@ -13,8 +13,8 @@ import { MySettingsPage } from './my-settings.page';
     CommonModule,
     FormsModule,
     IonicModule,
-    MySettingsPageRoutingModule
+    MySettingsPageRoutingModule,
   ],
-  declarations: [MySettingsPage]
+  declarations: [MySettingsPage],
 })
 export class MySettingsPageModule {}

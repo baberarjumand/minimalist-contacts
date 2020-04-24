@@ -6,8 +6,8 @@ import { AboutDevPage } from './about-dev.page';
 const routes: Routes = [
   {
     path: '',
-    component: AboutDevPage
-  }
+    component: AboutDevPage,
+  },
 ];
 
 @NgModule({

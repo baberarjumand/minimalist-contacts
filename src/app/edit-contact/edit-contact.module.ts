@@ -1,12 +1,12 @@
-import { NgModule } from "@angular/core";
-import { CommonModule } from "@angular/common";
-import { FormsModule, ReactiveFormsModule } from "@angular/forms";
+import { NgModule } from '@angular/core';
+import { CommonModule } from '@angular/common';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
-import { IonicModule } from "@ionic/angular";
+import { IonicModule } from '@ionic/angular';
 
-import { EditContactPageRoutingModule } from "./edit-contact-routing.module";
+import { EditContactPageRoutingModule } from './edit-contact-routing.module';
 
-import { EditContactPage } from "./edit-contact.page";
+import { EditContactPage } from './edit-contact.page';
 
 @NgModule({
   imports: [
@@ -14,8 +14,8 @@ import { EditContactPage } from "./edit-contact.page";
     FormsModule,
     IonicModule,
     EditContactPageRoutingModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
   ],
-  declarations: [EditContactPage]
+  declarations: [EditContactPage],
 })
 export class EditContactPageModule {}

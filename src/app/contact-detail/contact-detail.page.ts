@@ -1,12 +1,12 @@
-import { Component, OnInit } from "@angular/core";
-import { ActivatedRoute, Router } from "@angular/router";
-import { Contact } from "../model/contact.model";
-import { ContactsService } from "../services/contacts.service";
+import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute, Router } from '@angular/router';
+import { Contact } from '../model/contact.model';
+import { ContactsService } from '../services/contacts.service';
 
 @Component({
-  selector: "app-contact-detail",
-  templateUrl: "./contact-detail.page.html",
-  styleUrls: ["./contact-detail.page.scss"],
+  selector: 'app-contact-detail',
+  templateUrl: './contact-detail.page.html',
+  styleUrls: ['./contact-detail.page.scss'],
 })
 export class ContactDetailPage implements OnInit {
   private contactId: string;
@@ -30,25 +30,25 @@ export class ContactDetailPage implements OnInit {
     // if (!this.currentContact) {
     //     this.router.navigateByUrl("");
     // }
-    this.currentContact = this.activatedRoute.snapshot.data["contact"];
+    this.currentContact = this.activatedRoute.snapshot.data['contact'];
   }
 
   ionViewWillEnter() {
-    this.currentContact = this.activatedRoute.snapshot.data["contact"];
+    this.currentContact = this.activatedRoute.snapshot.data['contact'];
   }
 
   callNumber() {
     // TODO
-    console.log("call feature to be implemented");
+    console.log('call feature to be implemented');
   }
 
   messageNumber() {
     // TODO
-    console.log("messaging feature to be implemented");
+    console.log('messaging feature to be implemented');
   }
 
   emailContact() {
     // TODO
-    console.log("email feature to be implemented");
+    console.log('email feature to be implemented');
   }
 }

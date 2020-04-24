@@ -27,7 +27,11 @@
             </ion-item>
           </ion-menu-toggle>
           <ion-menu-toggle>
-            <ion-item *ngIf="isLoggedOut$ | async" lines="none" (click)="login()">
+            <ion-item
+              *ngIf="isLoggedOut$ | async"
+              lines="none"
+              (click)="login()"
+            >
               <ion-icon
                 slot="start"
                 [ios]="'log-in-outline'"
@@ -35,7 +39,11 @@
               ></ion-icon>
               <ion-label>Login</ion-label>
             </ion-item>
-            <ion-item *ngIf="isLoggedIn$ | async" lines="none" (click)="logOut()">
+            <ion-item
+              *ngIf="isLoggedIn$ | async"
+              lines="none"
+              (click)="logOut()"
+            >
               <ion-icon
                 slot="start"
                 [ios]="'log-out-outline'"

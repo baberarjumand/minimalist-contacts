@@ -71,7 +71,7 @@ const routes: Routes = [
     path: 'test-page',
     loadChildren: () =>
       import('./test-page/test-page.module').then((m) => m.TestPagePageModule),
-    canActivate: [AuthService]
+    canActivate: [AuthService],
   },
   {
     path: '**',

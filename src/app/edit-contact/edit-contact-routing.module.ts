@@ -6,8 +6,8 @@ import { EditContactPage } from './edit-contact.page';
 const routes: Routes = [
   {
     path: '',
-    component: EditContactPage
-  }
+    component: EditContactPage,
+  },
 ];
 
 @NgModule({

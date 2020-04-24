@@ -6,8 +6,8 @@ import { MySettingsPage } from './my-settings.page';
 const routes: Routes = [
   {
     path: '',
-    component: MySettingsPage
-  }
+    component: MySettingsPage,
+  },
 ];
 
 @NgModule({

@@ -1,15 +1,21 @@
-import { Component, OnInit } from "@angular/core";
+import { Component, OnInit } from '@angular/core';
 
-import { Platform } from "@ionic/angular";
-import { SplashScreen } from "@ionic-native/splash-screen/ngx";
-import { StatusBar } from "@ionic-native/status-bar/ngx";
+import { Platform } from '@ionic/angular';
+import { SplashScreen } from '@ionic-native/splash-screen/ngx';
+import { StatusBar } from '@ionic-native/status-bar/ngx';
+import { AuthService } from './services/auth.service';
+import { Observable } from 'rxjs';
+import { map, tap } from 'rxjs/operators';
+import { Router } from '@angular/router';
 
 @Component({
-  selector: "app-root",
-  templateUrl: "app.component.html",
-  styleUrls: ["app.component.scss"],
+  selector: 'app-root',
+  templateUrl: 'app.component.html',
+  styleUrls: ['app.component.scss'],
 })
 export class AppComponent implements OnInit {
+  isLoggedIn$: Observable<boolean>;
+  isLoggedOut$: Observable<boolean>;
   public selectedIndex = 0;
   public appPages = [
     // {
@@ -43,9 +49,9 @@ export class AppComponent implements OnInit {
     //   icon: "warning"
     // },
     {
-      title: "View Contacts",
-      url: "/all-contacts",
-      icon: "people",
+      title: 'View Contacts',
+      url: '/all-contacts',
+      icon: 'people',
     },
     // {
     //   title: "Search Contacts",
@@ -58,15 +64,15 @@ export class AppComponent implements OnInit {
     //   icon: "person-add"
     // },
     {
-      title: "My Account Settings",
-      url: "/my-settings",
-      icon: "settings",
+      title: 'My Account Settings',
+      url: '/my-settings',
+      icon: 'settings',
     },
     {
-      title: "About Developer",
-      url: "/about-dev",
+      title: 'About Developer',
+      url: '/about-dev',
       // icon: "bug",
-      icon: "code-slash",
+      icon: 'code-slash',
     },
   ];
   // public labels = ["Family", "Friends", "Notes", "Work", "Travel", "Reminders"];
@@ -74,7 +80,9 @@ export class AppComponent implements OnInit {
   constructor(
     private platform: Platform,
     private splashScreen: SplashScreen,
-    private statusBar: StatusBar
+    private statusBar: StatusBar,
+    private authService: AuthService,
+    private router: Router
   ) {
     this.initializeApp();
   }
@@ -87,11 +95,23 @@ export class AppComponent implements OnInit {
   }
 
   ngOnInit() {
-    const path = window.location.pathname.split("folder/")[1];
+    const path = window.location.pathname.split('folder/')[1];
     if (path !== undefined) {
       this.selectedIndex = this.appPages.findIndex(
         (page) => page.title.toLowerCase() === path.toLowerCase()
       );
     }
+    this.isLoggedIn$ = this.authService.loggedIn;
+    this.isLoggedOut$ = this.isLoggedIn$.pipe(map((loggedIn) => !loggedIn));
+  }
+
+  login() {
+    this.authService.logIn();
+    this.router.navigateByUrl('/test-page');
+  }
+
+  logOut() {
+    this.authService.logOut();
+    this.router.navigateByUrl('/all-contacts');
   }
 }

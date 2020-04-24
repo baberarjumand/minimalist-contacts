@@ -26,6 +26,24 @@
               <ion-label>{{ p.title }}</ion-label>
             </ion-item>
           </ion-menu-toggle>
+          <ion-menu-toggle>
+            <ion-item *ngIf="isLoggedOut$ | async" lines="none" (click)="login()">
+              <ion-icon
+                slot="start"
+                [ios]="'log-in-outline'"
+                [md]="'log-in-sharp'"
+              ></ion-icon>
+              <ion-label>Login</ion-label>
+            </ion-item>
+            <ion-item *ngIf="isLoggedIn$ | async" lines="none" (click)="logOut()">
+              <ion-icon
+                slot="start"
+                [ios]="'log-out-outline'"
+                [md]="'log-out-sharp'"
+              ></ion-icon>
+              <ion-label>Log Out</ion-label>
+            </ion-item>
+          </ion-menu-toggle>
         </ion-list>
 
         <!-- <ion-list id="labels-list">

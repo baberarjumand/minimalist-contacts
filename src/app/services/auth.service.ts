@@ -10,7 +10,7 @@ import {
   AngularFirestoreDocument,
 } from '@angular/fire/firestore';
 import { User } from '../model/user.model';
-import * as firebase from 'firebase';
+import * as firebase from 'firebase/app';
 
 @Injectable({
   providedIn: 'root',

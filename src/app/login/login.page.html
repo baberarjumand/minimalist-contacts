@@ -8,23 +8,24 @@
 </ion-header>
 
 <ion-content>
-  <ion-grid>
+  <ion-grid class="ion-text-center">
     <ion-row>
       <ion-col size="8" offset="2">
+        <ion-text>Please pick a login method</ion-text>
         <ion-button
           type="submit"
           color="danger"
           (click)="loginWithGoogle()"
           expand="block"
           size="large"
-          class="ion-margin"         
+          class="ion-margin"
         >
           <ion-icon
             [ios]="'logo-google'"
             [md]="'logo-google'"
             slot="start"
           ></ion-icon>
-          Login with Google
+          Google
         </ion-button>
         <ion-button
           type="submit"
@@ -39,7 +40,97 @@
             [md]="'person-circle-sharp'"
             slot="start"
           ></ion-icon>
-          Login Anonymously
+          Anonymous
+        </ion-button>
+      </ion-col>
+    </ion-row>
+    <div style="height: 5vh"></div>
+    <ion-row>
+      <ion-col size="8" offset="2">
+        <ion-text>Other Auth Methods supported by Firebase</ion-text>
+        <ion-button
+          type="submit"          
+          expand="block"
+          size="large"
+          class="ion-margin"          
+          color="facebook"          
+        >
+          <ion-icon
+            [ios]="'logo-facebook'"
+            [md]="'logo-facebook'"
+            slot="start"
+          ></ion-icon>
+          Facebook
+        </ion-button>
+        <ion-button
+          type="submit"          
+          expand="block"
+          size="large"
+          class="ion-margin"          
+          color="twitter"
+        >
+          <ion-icon
+            [ios]="'logo-twitter'"
+            [md]="'logo-twitter'"
+            slot="start"
+          ></ion-icon>
+          Twitter
+        </ion-button>
+        <ion-button
+          type="submit"          
+          expand="block"
+          size="large"
+          class="ion-margin"          
+          color="github"
+        >
+          <ion-icon
+            [ios]="'logo-github'"
+            [md]="'logo-github'"
+            slot="start"
+          ></ion-icon>
+          GitHub
+        </ion-button>
+        <ion-button
+          type="submit"          
+          expand="block"
+          size="large"
+          class="ion-margin"          
+          color="yahoo"
+        >
+          <ion-icon
+            [ios]="'logo-yahoo'"
+            [md]="'logo-yahoo'"
+            slot="start"
+          ></ion-icon>
+          Yahoo
+        </ion-button>
+        <ion-button
+          type="submit"          
+          expand="block"
+          size="large"
+          class="ion-margin"          
+          color="microsoft"
+        >
+          <ion-icon
+            [ios]="'logo-windows'"
+            [md]="'logo-windows'"
+            slot="start"
+          ></ion-icon>
+          Microsoft
+        </ion-button>
+        <ion-button
+          type="submit"          
+          expand="block"
+          size="large"
+          class="ion-margin"          
+          color="apple"
+        >
+          <ion-icon
+            [ios]="'logo-apple'"
+            [md]="'logo-apple'"
+            slot="start"
+          ></ion-icon>
+          Apple
         </ion-button>
       </ion-col>
     </ion-row>

@@ -3,58 +3,72 @@
     <ion-menu contentId="main-content" type="overlay">
       <ion-content>
         <ion-list id="inbox-list">
-          <ion-list-header>Contacts App</ion-list-header>
+          <ion-list-header>Minimalist Contacts</ion-list-header>
           <ion-note>Mini-project to practice Firebase</ion-note>
 
-          <ion-menu-toggle
-            auto-hide="false"
-            *ngFor="let p of appPages; let i = index"
-          >
+          <ion-menu-toggle auto-hide="false">
             <ion-item
-              (click)="selectedIndex = i"
               routerDirection="root"
-              [routerLink]="[p.url]"
+              [routerLink]="['login']"
               lines="none"
               detail="false"
-              [class.selected]="selectedIndex == i"
-            >
-              <ion-icon
-                slot="start"
-                [ios]="p.icon + '-outline'"
-                [md]="p.icon + '-sharp'"
-              ></ion-icon>
-              <ion-label>{{ p.title }}</ion-label>
-            </ion-item>
-          </ion-menu-toggle>
-          <ion-menu-toggle>
-            <!-- <ion-item
-              *ngIf="isLoggedOut$ | async"
-              lines="none"
-              (click)="login()"
-            >
-              <ion-icon
-                slot="start"
-                [ios]="'log-in-outline'"
-                [md]="'log-in-sharp'"
-              ></ion-icon>
-              <ion-label>Login</ion-label>
-            </ion-item>
-            <ion-item
-              *ngIf="isLoggedIn$ | async"
-              lines="none"
-              (click)="logOut()"
+              *ngIf="!(this.authService.ngFireAuth.authState | async)"
             >
               <ion-icon
                 slot="start"
                 [ios]="'log-out-outline'"
                 [md]="'log-out-sharp'"
               ></ion-icon>
-              <ion-label>Log Out</ion-label>
-            </ion-item> -->
-            <ion-item              
+              <ion-label>Log In</ion-label>
+            </ion-item>
+            <ion-item
+              routerDirection="root"
+              [routerLink]="['all-contacts']"
               lines="none"
+              detail="false"
+              *ngIf="this.authService.ngFireAuth.authState | async"
+            >
+              <ion-icon
+                slot="start"
+                [ios]="'people-outline'"
+                [md]="'people-sharp'"
+              ></ion-icon>
+              <ion-label>View Contacts</ion-label>
+            </ion-item>
+            <ion-item
+              routerDirection="root"
+              [routerLink]="['my-settings']"
+              lines="none"
+              detail="false"
+              *ngIf="this.authService.ngFireAuth.authState | async"
+            >
+              <ion-icon
+                slot="start"
+                [ios]="'settings-outline'"
+                [md]="'settings-sharp'"
+              ></ion-icon>
+              <ion-label>My Profile</ion-label>
+            </ion-item>
+            <ion-item
+              routerDirection="root"
+              [routerLink]="['about-dev']"
+              lines="none"
+              detail="false"
+            >
+              <ion-icon
+                slot="start"
+                [ios]="'code-slash-outline'"
+                [md]="'code-slash-sharp'"
+              ></ion-icon>
+              <ion-label>About Developer</ion-label>
+            </ion-item>
+            <ion-item
+              routerDirection="root"
+              [routerLink]="['login']"
+              lines="none"
+              detail="false"
               (click)="logOut()"
-              *ngIf="this.authService.ngFireAuth.authState | async"              
+              *ngIf="this.authService.ngFireAuth.authState | async"
             >
               <ion-icon
                 slot="start"

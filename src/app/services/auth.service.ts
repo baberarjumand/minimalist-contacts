@@ -10,6 +10,7 @@ import {
   AngularFirestoreDocument,
 } from '@angular/fire/firestore';
 import { User } from '../model/user.model';
+import * as firebase from 'firebase';
 
 @Injectable({
   providedIn: 'root',
@@ -77,20 +78,28 @@ export class AuthService implements CanActivate {
 
   // Sign in with Gmail
   googleAuth() {
-    return this.authLogin(new auth.GoogleAuthProvider());
+    this.ngFireAuth
+      .setPersistence(firebase.auth.Auth.Persistence.SESSION)
+      .then(() => {
+        return this.authLogin(new auth.GoogleAuthProvider());
+      });
   }
 
   signInAnonymously() {
-    return this.ngFireAuth
-      .signInAnonymously()
-      .then((result) => {
-        this.ngZone.run(() => {
-          this.router.navigate(['all-contacts']);
-        });
-        // this.setUserData(result.user);
-      })
-      .catch((error) => {
-        window.alert(error);
+    this.ngFireAuth
+      .setPersistence(firebase.auth.Auth.Persistence.LOCAL)
+      .then(() => {
+        return this.ngFireAuth
+          .signInAnonymously()
+          .then((result) => {
+            this.ngZone.run(() => {
+              this.router.navigate(['all-contacts']);
+            });
+            // this.setUserData(result.user);
+          })
+          .catch((error) => {
+            window.alert(error);
+          });
       });
   }
 

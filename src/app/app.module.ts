@@ -14,6 +14,9 @@ import { AngularFirestoreModule } from '@angular/fire/firestore';
 import { firebaseConfiguration } from 'src/environments/environment';
 import { ContactResolver } from './services/contact.resolver';
 
+import { AngularFireAuthModule } from '@angular/fire/auth';
+import { AngularFireDatabaseModule } from '@angular/fire/database';
+
 @NgModule({
   declarations: [AppComponent],
   entryComponents: [],
@@ -23,6 +26,8 @@ import { ContactResolver } from './services/contact.resolver';
     AppRoutingModule,
     AngularFireModule.initializeApp(firebaseConfiguration),
     AngularFirestoreModule,
+    AngularFireAuthModule,
+    AngularFireDatabaseModule,
   ],
   providers: [
     StatusBar,

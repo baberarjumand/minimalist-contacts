@@ -177,10 +177,10 @@ export class ContactsService {
       .get()
       .pipe(
         map((snap) => {
-          return <Contact>{
+          return {
             id: snap.id,
             ...snap.data(),
-          };
+          } as Contact;
         })
       );
   }

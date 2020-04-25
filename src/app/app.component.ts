@@ -14,8 +14,8 @@ import { Router } from '@angular/router';
   styleUrls: ['app.component.scss'],
 })
 export class AppComponent implements OnInit {
-  isLoggedIn$: Observable<boolean>;
-  isLoggedOut$: Observable<boolean>;
+  // isLoggedIn$: Observable<boolean>;
+  // isLoggedOut$: Observable<boolean>;
   public selectedIndex = 0;
   public appPages = [
     // {
@@ -101,17 +101,20 @@ export class AppComponent implements OnInit {
         (page) => page.title.toLowerCase() === path.toLowerCase()
       );
     }
-    this.isLoggedIn$ = this.authService.loggedIn;
-    this.isLoggedOut$ = this.isLoggedIn$.pipe(map((loggedIn) => !loggedIn));
+    // this.isLoggedIn$ = this.authService.loggedIn;
+    // this.isLoggedOut$ = this.isLoggedIn$.pipe(map((loggedIn) => !loggedIn));
+    // console.log(this.authService.ngFireAuth.authState);
   }
 
   login() {
-    this.authService.logIn();
-    this.router.navigateByUrl('/test-page');
+    // this.authService.logIn();
+    // this.router.navigateByUrl('/test-page');
   }
 
   logOut() {
-    this.authService.logOut();
-    this.router.navigateByUrl('/all-contacts');
+    // this.authService.logOut();
+    // this.router.navigateByUrl('/all-contacts');
+    this.authService.signOut();
+    console.log(this.authService.ngFireAuth.authState);
   }
 }

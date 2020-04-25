@@ -27,7 +27,7 @@
             </ion-item>
           </ion-menu-toggle>
           <ion-menu-toggle>
-            <ion-item
+            <!-- <ion-item
               *ngIf="isLoggedOut$ | async"
               lines="none"
               (click)="login()"
@@ -43,6 +43,18 @@
               *ngIf="isLoggedIn$ | async"
               lines="none"
               (click)="logOut()"
+            >
+              <ion-icon
+                slot="start"
+                [ios]="'log-out-outline'"
+                [md]="'log-out-sharp'"
+              ></ion-icon>
+              <ion-label>Log Out</ion-label>
+            </ion-item> -->
+            <ion-item              
+              lines="none"
+              (click)="logOut()"
+              *ngIf="this.authService.ngFireAuth.authState | async"              
             >
               <ion-icon
                 slot="start"

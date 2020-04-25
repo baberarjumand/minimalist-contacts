@@ -1,0 +1,47 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-menu-button></ion-menu-button>
+    </ion-buttons>
+    <ion-title>Login</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-grid>
+    <ion-row>
+      <ion-col size="8" offset="2">
+        <ion-button
+          type="submit"
+          color="danger"
+          (click)="loginWithGoogle()"
+          expand="block"
+          size="large"
+          class="ion-margin"         
+        >
+          <ion-icon
+            [ios]="'logo-google'"
+            [md]="'logo-google'"
+            slot="start"
+          ></ion-icon>
+          Login with Google
+        </ion-button>
+        <ion-button
+          type="submit"
+          color="medium"
+          (click)="loginAnonymously()"
+          expand="block"
+          size="large"
+          class="ion-margin"
+        >
+          <ion-icon
+            [ios]="'person-circle-outline'"
+            [md]="'person-circle-sharp'"
+            slot="start"
+          ></ion-icon>
+          Login Anonymously
+        </ion-button>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+</ion-content>

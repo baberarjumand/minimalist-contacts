@@ -1,7 +1,15 @@
 import { NgModule } from '@angular/core';
 import { PreloadAllModules, RouterModule, Routes } from '@angular/router';
 import { ContactResolver } from './services/contact.resolver';
-import { AuthService } from './services/auth.service';
+import {
+  AngularFireAuthGuard,
+  redirectLoggedInTo,
+  redirectUnauthorizedTo,
+} from '@angular/fire/auth-guard';
+import { canActivate } from '@angular/fire/auth-guard';
+
+const redirectLoggedInToContacts = () => redirectLoggedInTo(['all-contacts']);
+const redirectUnauthorizedToLogin = () => redirectUnauthorizedTo(['login']);
 
 const routes: Routes = [
   {
@@ -9,17 +17,19 @@ const routes: Routes = [
     redirectTo: 'all-contacts',
     pathMatch: 'full',
   },
-  {
-    path: 'folder/:id',
-    loadChildren: () =>
-      import('./folder/folder.module').then((m) => m.FolderPageModule),
-  },
+  // {
+  //   path: 'folder/:id',
+  //   loadChildren: () =>
+  //     import('./folder/folder.module').then((m) => m.FolderPageModule),
+  // },
   {
     path: 'all-contacts',
     loadChildren: () =>
       import('./all-contacts/all-contacts.module').then(
         (m) => m.AllContactsPageModule
       ),
+    // canActivate: [AngularFireAuthGuard],
+    ...canActivate(redirectUnauthorizedToLogin),
   },
   // {
   //   path: "search-contacts",
@@ -34,6 +44,7 @@ const routes: Routes = [
       import('./add-contact/add-contact.module').then(
         (m) => m.AddContactPageModule
       ),
+    ...canActivate(redirectUnauthorizedToLogin),
   },
   {
     path: 'my-settings',
@@ -41,6 +52,7 @@ const routes: Routes = [
       import('./my-settings/my-settings.module').then(
         (m) => m.MySettingsPageModule
       ),
+    ...canActivate(redirectUnauthorizedToLogin),
   },
   {
     path: 'about-dev',
@@ -56,6 +68,7 @@ const routes: Routes = [
     resolve: {
       contact: ContactResolver,
     },
+    ...canActivate(redirectUnauthorizedToLogin),
   },
   {
     path: 'edit-contact/:id',
@@ -66,12 +79,19 @@ const routes: Routes = [
     resolve: {
       contact: ContactResolver,
     },
+    ...canActivate(redirectUnauthorizedToLogin),
   },
+  // {
+  //   path: 'test-page',
+  //   loadChildren: () =>
+  //     import('./test-page/test-page.module').then((m) => m.TestPagePageModule),
+  //   canActivate: [AuthService],
+  // },
   {
-    path: 'test-page',
+    path: 'login',
     loadChildren: () =>
-      import('./test-page/test-page.module').then((m) => m.TestPagePageModule),
-    canActivate: [AuthService],
+      import('./login/login.module').then((m) => m.LoginPageModule),
+    ...canActivate(redirectLoggedInToContacts),
   },
   {
     path: '**',

@@ -1,5 +1,8 @@
+// reference for firebase auth
+// https://www.positronx.io/ionic-firebase-authentication-tutorial-with-examples/
+
 import { Injectable } from '@angular/core';
-import { BehaviorSubject } from 'rxjs';
+import { BehaviorSubject, Observable } from 'rxjs';
 import { CanActivate, ActivatedRouteSnapshot, Router } from '@angular/router';
 
 import { NgZone } from '@angular/core';
@@ -11,6 +14,7 @@ import {
 } from '@angular/fire/firestore';
 import { User } from '../model/user.model';
 import * as firebase from 'firebase/app';
+import { map, takeLast, take } from 'rxjs/operators';
 
 @Injectable({
   providedIn: 'root',
@@ -74,6 +78,16 @@ export class AuthService implements CanActivate {
   get isLoggedIn(): boolean {
     const user = JSON.parse(localStorage.getItem('user'));
     return user !== null && user.emailVerified !== false ? true : false;
+  }
+
+  getCurrentUserId(): Observable<string> {
+    return this.ngFireAuth.authState.pipe(
+      map((user) => {
+        if (user) {
+          return user.uid;
+        }
+      })
+    );
   }
 
   // Sign in with Gmail

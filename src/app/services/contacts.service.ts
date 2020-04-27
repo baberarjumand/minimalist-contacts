@@ -4,6 +4,7 @@ import { AngularFirestore } from '@angular/fire/firestore';
 import { Observable, from } from 'rxjs';
 import { map, first } from 'rxjs/operators';
 import { LoadingController } from '@ionic/angular';
+import { AuthService } from './auth.service';
 
 @Injectable({
   providedIn: 'root',
@@ -11,10 +12,12 @@ import { LoadingController } from '@ionic/angular';
 export class ContactsService {
   // this implementation is for local storage
   // savedContacts: Contact[];
+  private currentUserId: string;
 
   constructor(
     private db: AngularFirestore,
-    private loadingCtrl: LoadingController
+    private loadingCtrl: LoadingController,
+    private authService: AuthService
   ) {
     // this implementation is for local storage
     // const contacts = [];
@@ -57,6 +60,9 @@ export class ContactsService {
     // });
     // this.savedContacts = contacts;
     // this.savedContacts = this.sortContacts(this.savedContacts);
+    this.authService
+      .getCurrentUserId()
+      .subscribe((uid) => (this.currentUserId = uid));
   }
 
   // getTestContacts() {
@@ -77,8 +83,17 @@ export class ContactsService {
     // return this.savedContacts;
 
     // this implementation is for firestore
+    // let currentUserId: string;
+    // this.authService.getCurrentUserId().subscribe((currentUid) => {
+    //   console.log(currentUid);
+    //   currentUserId = currentUid;
+    // });
+    // console.log('getAllContacts uid: ' + currentUserId);
+
     return this.db
-      .collection('contacts', (ref) => ref.orderBy('firstName'))
+      .collection('contacts', (ref) =>
+        ref.where('uid', '==', this.currentUserId).orderBy('firstName')
+      )
       .snapshotChanges()
       .pipe(map((snaps) => this.convertSnaps<Contact>(snaps)));
   }
@@ -107,24 +122,30 @@ export class ContactsService {
     // this.savedContacts = this.sortContacts(this.savedContacts);
 
     // this implementation is for firestore
-    let tempContact = {
+    const tempContact: any = {
       firstName: this.capitalizeFirstLetter(addFormData.firstName),
     };
     if (addFormData.lastName !== '' && addFormData.lastName !== undefined) {
-      tempContact['lastName'] = this.capitalizeFirstLetter(
-        addFormData.lastName
-      );
+      tempContact.lastName = this.capitalizeFirstLetter(addFormData.lastName);
     }
     if (
       addFormData.contactNumber !== '' &&
       addFormData.contactNumber !== undefined
     ) {
-      tempContact['contactNumber'] = addFormData.contactNumber;
+      tempContact.contactNumber = addFormData.contactNumber;
     }
     if (addFormData.email !== '' && addFormData.email !== undefined) {
-      tempContact['email'] = addFormData.email;
+      tempContact.email = addFormData.email;
     }
     // console.log(tempContact);
+
+    // this.authService.getCurrentUserId().subscribe((currentUserId) => {
+    //   if (currentUserId) {
+    //     tempContact.uid = currentUserId;
+    //   }
+    // });
+
+    tempContact.uid = this.currentUserId;
 
     const loading = await this.loadingCtrl.create({
       message: 'Adding contact, please wait...',
@@ -236,20 +257,19 @@ export class ContactsService {
     //         })
     // );
 
-    let tempContact = {
+    const tempContact: any = {
       firstName: this.capitalizeFirstLetter(editFormData.firstName),
     };
     if (editFormData.lastName !== '' && editFormData.lastName !== undefined) {
-      tempContact['lastName'] = this.capitalizeFirstLetter(
-        editFormData.lastName
-      );
+      tempContact.lastName = this.capitalizeFirstLetter(editFormData.lastName);
     }
     if (editFormData.contactNumber) {
-      tempContact['contactNumber'] = editFormData.contactNumber;
+      tempContact.contactNumber = editFormData.contactNumber;
     }
     if (editFormData.email !== '' && editFormData.email !== undefined) {
-      tempContact['email'] = editFormData.email;
+      tempContact.email = editFormData.email;
     }
+    tempContact.uid = this.currentUserId;
     // console.log(tempContact);
 
     return from(this.db.collection('contacts').doc(contactId).set(tempContact));

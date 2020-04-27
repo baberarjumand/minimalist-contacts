@@ -5,7 +5,8 @@
     </ion-buttons>
     <ion-title>My Contacts</ion-title>
     <ion-buttons slot="primary">
-      <ion-button [routerLink]="['/', 'add-contact']">
+      <!-- <ion-button [routerLink]="['/', 'add-contact']"> -->
+      <ion-button (click)="goToAddContactPage()">
         <ion-icon
           [ios]="'add-outline'"
           [md]="'add-sharp'"

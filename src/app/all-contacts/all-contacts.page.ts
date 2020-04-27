@@ -1,7 +1,10 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, NgZone } from '@angular/core';
 import { ContactsService } from '../services/contacts.service';
 import { Contact } from '../model/contact.model';
 import { LoadingController, AlertController } from '@ionic/angular';
+import { AuthService } from '../services/auth.service';
+import { map } from 'rxjs/operators';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-all-contacts',
@@ -14,7 +17,10 @@ export class AllContactsPage implements OnInit {
 
   constructor(
     private contactsService: ContactsService,
-    private loadingCtrl: LoadingController
+    private loadingCtrl: LoadingController,
+    private authService: AuthService,
+    private router: Router,
+    private ngZone: NgZone
   ) {}
 
   async ngOnInit() {
@@ -48,5 +54,9 @@ export class AllContactsPage implements OnInit {
       contactNumber: 6666666,
       email: 'loves@democracy.com',
     });
+  }
+
+  goToAddContactPage() {
+    this.ngZone.run(() => this.router.navigate(['add-contact']));
   }
 }

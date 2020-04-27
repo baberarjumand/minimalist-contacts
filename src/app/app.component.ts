@@ -1,19 +1,20 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 
 import { Platform } from '@ionic/angular';
 import { SplashScreen } from '@ionic-native/splash-screen/ngx';
 import { StatusBar } from '@ionic-native/status-bar/ngx';
 import { AuthService } from './services/auth.service';
-import { Observable } from 'rxjs';
-import { map, tap } from 'rxjs/operators';
 import { Router } from '@angular/router';
+import { map } from 'rxjs/operators';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-root',
   templateUrl: 'app.component.html',
   styleUrls: ['app.component.scss'],
 })
-export class AppComponent implements OnInit {
+export class AppComponent implements OnInit, OnDestroy {
+  private currentUserSub: Subscription;
   // isLoggedIn$: Observable<boolean>;
   // isLoggedOut$: Observable<boolean>;
   // public selectedIndex = 0;
@@ -103,7 +104,31 @@ export class AppComponent implements OnInit {
     // }
     // this.isLoggedIn$ = this.authService.loggedIn;
     // this.isLoggedOut$ = this.isLoggedIn$.pipe(map((loggedIn) => !loggedIn));
-    // console.log(this.authService.ngFireAuth.authState);
+    this.currentUserSub = this.authService.ngFireAuth.authState
+      .pipe(
+        map((user) => {
+          if (user) {
+            const userInfo: any = {};
+            userInfo.isAnon = user.isAnonymous;
+            userInfo.name = user.displayName;
+            userInfo.email = user.email;
+            userInfo.uid = user.uid;
+            return userInfo;
+          }
+        })
+      )
+      .subscribe((userInfo) => {
+        if (userInfo) {
+          console.log('current user: ', userInfo);
+        }
+      });
+    // this.authService.ngFireAuth.authState.subscribe((user) =>
+    //   user ? console.log('isAnon: ' + user.isAnonymous) : null
+    // );
+  }
+
+  ngOnDestroy() {
+    this.currentUserSub.unsubscribe();
   }
 
   login() {

@@ -78,7 +78,7 @@ export class ContactsService {
     }) as T[];
   }
 
-  getAllContacts(): Observable<Contact[]> {
+  getAllContacts(isUserAnon): Observable<Contact[]> {
     // this implementation is for local storage
     // return this.savedContacts;
 
@@ -90,12 +90,14 @@ export class ContactsService {
     // });
     // console.log('getAllContacts uid: ' + currentUserId);
 
-    return this.db
-      .collection('contacts', (ref) =>
-        ref.where('uid', '==', this.currentUserId).orderBy('firstName')
-      )
-      .snapshotChanges()
-      .pipe(map((snaps) => this.convertSnaps<Contact>(snaps)));
+    if (!isUserAnon && isUserAnon != null) {
+      return this.db
+        .collection('contacts', (ref) =>
+          ref.where('uid', '==', this.currentUserId).orderBy('firstName')
+        )
+        .snapshotChanges()
+        .pipe(map((snaps) => this.convertSnaps<Contact>(snaps)));
+    }
   }
 
   async addContact(addFormData) {
@@ -180,7 +182,7 @@ export class ContactsService {
     return (s.charAt(0).toUpperCase() + s.slice(1)).toString();
   }
 
-  getContactById(contactId): Observable<Contact> {
+  getContactById(contactId, isUserAnon): Observable<Contact> {
     // this implementation is for local storage
     // if (typeof contactId === "number") {
     //     contactId = contactId.toString();
@@ -189,21 +191,23 @@ export class ContactsService {
     // return contacts.filter((contact) => contact.id === contactId)[0];
 
     // this implementation is for firestore
-    if (typeof contactId === 'number') {
-      contactId = contactId.toString();
+    if (!isUserAnon) {
+      if (typeof contactId === 'number') {
+        contactId = contactId.toString();
+      }
+      return this.db
+        .collection('contacts')
+        .doc(contactId)
+        .get()
+        .pipe(
+          map((snap) => {
+            return {
+              id: snap.id,
+              ...snap.data(),
+            } as Contact;
+          })
+        );
     }
-    return this.db
-      .collection('contacts')
-      .doc(contactId)
-      .get()
-      .pipe(
-        map((snap) => {
-          return {
-            id: snap.id,
-            ...snap.data(),
-          } as Contact;
-        })
-      );
   }
 
   // this implementation is for local storage

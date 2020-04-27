@@ -1,26 +1,33 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ContactsService } from '../services/contacts.service';
 import { Contact } from '../model/contact.model';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { AlertController } from '@ionic/angular';
+import { AuthService } from '../services/auth.service';
+import { LocalContactService } from '../services/local-contact.service';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-edit-contact',
   templateUrl: './edit-contact.page.html',
   styleUrls: ['./edit-contact.page.scss'],
 })
-export class EditContactPage implements OnInit {
+export class EditContactPage implements OnInit, OnDestroy {
   private contactId: string;
   private currentContact: Contact;
   editFormGroup: FormGroup;
+  private isAnonUser: boolean;
+  private tempSub: Subscription;
 
   constructor(
     private activatedRoute: ActivatedRoute,
     private contactsService: ContactsService,
     private formBuilder: FormBuilder,
     private router: Router,
-    private alertController: AlertController
+    private alertController: AlertController,
+    private authService: AuthService,
+    private localContactsService: LocalContactService
   ) {}
 
   ngOnInit() {
@@ -33,7 +40,7 @@ export class EditContactPage implements OnInit {
     // this.contactsService.getContactById(this.contactId).subscribe((c) => {
     //     this.currentContact = c;
     // });
-    this.currentContact = this.activatedRoute.snapshot.data['contact'];
+    this.currentContact = this.activatedRoute.snapshot.data.contact;
     // if (this.currentContact) {
     this.editFormGroup = this.formBuilder.group({
       firstName: [
@@ -62,15 +69,32 @@ export class EditContactPage implements OnInit {
     // } else {
     // this.router.navigateByUrl("");
     // }
+    this.tempSub = this.authService
+      .isUserAnon()
+      .subscribe((userStatus) => (this.isAnonUser = userStatus));
+  }
+
+  ngOnDestroy() {
+    this.tempSub.unsubscribe();
   }
 
   onSubmit() {
-    this.contactsService
-      .updateContact(this.currentContact.id, this.editFormGroup.value)
-      .subscribe(() => {
-        this.editFormGroup.reset();
-        this.router.navigateByUrl('/contact-detail/' + this.currentContact.id);
-      });
+    if (this.isAnonUser) {
+      this.localContactsService.updateContact(
+        this.currentContact.id,
+        this.editFormGroup.value
+      );
+      this.router.navigateByUrl('/contact-detail/' + this.currentContact.id);
+    } else {
+      this.contactsService
+        .updateContact(this.currentContact.id, this.editFormGroup.value)
+        .subscribe(() => {
+          this.editFormGroup.reset();
+          this.router.navigateByUrl(
+            '/contact-detail/' + this.currentContact.id
+          );
+        });
+    }
   }
 
   async deleteContact() {
@@ -86,7 +110,11 @@ export class EditContactPage implements OnInit {
           text: 'Yes',
           handler: () => {
             // console.log("Confirm delete contact id: " + this.currentContact.id);
-            this.contactsService.deleteContact(this.currentContact.id);
+            if (this.isAnonUser) {
+              this.localContactsService.deleteContact(this.currentContact.id);
+            } else {
+              this.contactsService.deleteContact(this.currentContact.id);
+            }
             this.router.navigateByUrl('');
           },
         },

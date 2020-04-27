@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Contact } from '../model/contact.model';
 import { ContactsService } from '../services/contacts.service';
+import { AuthService } from '../services/auth.service';
 
 @Component({
   selector: 'app-contact-detail',
@@ -15,7 +16,8 @@ export class ContactDetailPage implements OnInit {
   constructor(
     private activatedRoute: ActivatedRoute,
     private contactsService: ContactsService,
-    private router: Router
+    private router: Router,
+    private authService: AuthService
   ) {}
 
   ngOnInit() {
@@ -30,11 +32,11 @@ export class ContactDetailPage implements OnInit {
     // if (!this.currentContact) {
     //     this.router.navigateByUrl("");
     // }
-    this.currentContact = this.activatedRoute.snapshot.data['contact'];
+    this.currentContact = this.activatedRoute.snapshot.data.contact;
   }
 
   ionViewWillEnter() {
-    this.currentContact = this.activatedRoute.snapshot.data['contact'];
+    this.currentContact = this.activatedRoute.snapshot.data.contact;
   }
 
   callNumber() {

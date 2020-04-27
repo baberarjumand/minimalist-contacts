@@ -13,7 +13,7 @@ import { Subscription } from 'rxjs';
   templateUrl: 'app.component.html',
   styleUrls: ['app.component.scss'],
 })
-export class AppComponent implements OnInit, OnDestroy {
+export class AppComponent implements OnInit {
   private currentUserSub: Subscription;
   // isLoggedIn$: Observable<boolean>;
   // isLoggedOut$: Observable<boolean>;
@@ -127,9 +127,9 @@ export class AppComponent implements OnInit, OnDestroy {
     // );
   }
 
-  ngOnDestroy() {
-    this.currentUserSub.unsubscribe();
-  }
+  // ngOnDestroy() {
+  //   this.currentUserSub.unsubscribe();
+  // }
 
   login() {
     // this.authService.logIn();
@@ -140,6 +140,7 @@ export class AppComponent implements OnInit, OnDestroy {
     // this.authService.logOut();
     // this.router.navigateByUrl('/all-contacts');
     this.authService.signOut();
+    this.router.navigate(['login']);
     // console.log(this.authService.ngFireAuth.authState);
   }
 }

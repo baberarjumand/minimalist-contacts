@@ -5,6 +5,7 @@ import { LoadingController, AlertController } from '@ionic/angular';
 import { AuthService } from '../services/auth.service';
 import { map } from 'rxjs/operators';
 import { Router } from '@angular/router';
+import { LocalContactService } from '../services/local-contact.service';
 
 @Component({
   selector: 'app-all-contacts',
@@ -13,25 +14,35 @@ import { Router } from '@angular/router';
 })
 export class AllContactsPage implements OnInit {
   contacts: Contact[] = [];
-  randomBool = true;
+  isUserAnon: boolean;
 
   constructor(
     private contactsService: ContactsService,
     private loadingCtrl: LoadingController,
     private authService: AuthService,
     private router: Router,
-    private ngZone: NgZone
+    private ngZone: NgZone,
+    private localContactsService: LocalContactService
   ) {}
 
   async ngOnInit() {
-    // this.contacts = this.contactsService.getAllContacts();
     const loading = await this.loadingCtrl.create({
       message: 'Fetching contacts...',
     });
     await loading.present();
-    this.contactsService.getAllContacts().subscribe((contacts) => {
-      this.contacts = contacts;
-      loading.dismiss();
+    this.authService.isUserAnon().subscribe((userStatus) => {
+      this.isUserAnon = userStatus;
+      if (this.isUserAnon) {
+        this.contacts = this.localContactsService.getAllContacts();
+        loading.dismiss();
+      } else if (this.isUserAnon != null && !this.isUserAnon) {
+        this.contactsService
+          .getAllContacts(this.isUserAnon)
+          .subscribe((contacts) => {
+            this.contacts = contacts;
+            loading.dismiss();
+          });
+      }
     });
     // this.contactsService
     //     .getContactById("aG5H3zvwJB2GQqJD1w7e")
@@ -39,21 +50,23 @@ export class AllContactsPage implements OnInit {
   }
 
   instaAddRandomContacts() {
-    this.contactsService.addContact({
-      firstName: 'Anakin',
-      lastName: 'Skywalker',
-      email: 'ani@sand.com',
-    });
-    this.contactsService.addContact({
-      firstName: 'Obi-Wan',
-      lastName: 'Kenobi',
-      email: 'hello@there.com',
-    });
-    this.contactsService.addContact({
-      firstName: 'Palpatine',
-      contactNumber: 6666666,
-      email: 'loves@democracy.com',
-    });
+    if (!this.isUserAnon) {
+      this.contactsService.addContact({
+        firstName: 'Anakin',
+        lastName: 'Skywalker',
+        email: 'ani@sand.com',
+      });
+      this.contactsService.addContact({
+        firstName: 'Obi-Wan',
+        lastName: 'Kenobi',
+        email: 'hello@there.com',
+      });
+      this.contactsService.addContact({
+        firstName: 'Palpatine',
+        contactNumber: 6666666,
+        email: 'loves@democracy.com',
+      });
+    }
   }
 
   goToAddContactPage() {

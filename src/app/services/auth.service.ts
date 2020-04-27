@@ -90,6 +90,16 @@ export class AuthService implements CanActivate {
     );
   }
 
+  isUserAnon(): Observable<boolean> {
+    return this.ngFireAuth.authState.pipe(
+      map((user) => {
+        if (user) {
+          return user.isAnonymous;
+        }
+      })
+    );
+  }
+
   // Sign in with Gmail
   googleAuth() {
     this.ngFireAuth
@@ -143,7 +153,7 @@ export class AuthService implements CanActivate {
       displayName: user.displayName,
       photoURL: user.photoURL,
       emailVerified: user.emailVerified,
-      isAnon: user.isAnonymous
+      isAnon: user.isAnonymous,
     };
     return userRef.set(userData, {
       merge: true,

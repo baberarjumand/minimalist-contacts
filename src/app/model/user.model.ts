@@ -4,6 +4,7 @@ export class User {
     public email: string,
     public displayName: string,
     public photoURL: string,
-    public emailVerified: boolean
+    public emailVerified: boolean,
+    public isAnon: boolean
   ) {}
 }

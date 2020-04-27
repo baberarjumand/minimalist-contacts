@@ -143,6 +143,7 @@ export class AuthService implements CanActivate {
       displayName: user.displayName,
       photoURL: user.photoURL,
       emailVerified: user.emailVerified,
+      isAnon: user.isAnonymous
     };
     return userRef.set(userData, {
       merge: true,

@@ -10,8 +10,6 @@ import { AuthService } from './auth.service';
   providedIn: 'root',
 })
 export class ContactsService {
-  // this implementation is for local storage
-  // savedContacts: Contact[];
   private currentUserId: string;
 
   constructor(
@@ -19,55 +17,10 @@ export class ContactsService {
     private loadingCtrl: LoadingController,
     private authService: AuthService
   ) {
-    // this implementation is for local storage
-    // const contacts = [];
-    // // contacts.push(
-    // //   new Contact(
-    // //     "2",
-    // //     "FName2",
-    // //     "LName2",
-    // //     "5678901234",
-    // //     "fname0.lname0@email.com"
-    // //   )
-    // // );
-    // contacts.push(
-    //   new Contact(
-    //     "0",
-    //     "FName0",
-    //     "LName0",
-    //     "0123456789",
-    //     "fname0.lname0@email.com"
-    //   )
-    // );
-    // contacts.push({
-    //   id: "234",
-    //   firstName: "OName234",
-    //   email: "fname234@email.com"
-    // });
-    // // contacts.push(
-    // //   new Contact(
-    // //     "1",
-    // //     "FName1",
-    // //     "LName1",
-    // //     "9876543210",
-    // //     "fname1.lname1@email.com"
-    // //   )
-    // // );
-    // contacts.push({
-    //   id: "973",
-    //   firstName: "RName973",
-    //   contactNumber: "9731234973"
-    // });
-    // this.savedContacts = contacts;
-    // this.savedContacts = this.sortContacts(this.savedContacts);
     this.authService
       .getCurrentUserId()
       .subscribe((uid) => (this.currentUserId = uid));
   }
-
-  // getTestContacts() {
-  //   return this.savedContacts;
-  // }
 
   convertSnaps<T>(snaps) {
     return snaps.map((snap) => {
@@ -79,17 +32,6 @@ export class ContactsService {
   }
 
   getAllContacts(isUserAnon): Observable<Contact[]> {
-    // this implementation is for local storage
-    // return this.savedContacts;
-
-    // this implementation is for firestore
-    // let currentUserId: string;
-    // this.authService.getCurrentUserId().subscribe((currentUid) => {
-    //   console.log(currentUid);
-    //   currentUserId = currentUid;
-    // });
-    // console.log('getAllContacts uid: ' + currentUserId);
-
     if (!isUserAnon && isUserAnon != null) {
       return this.db
         .collection('contacts', (ref) =>
@@ -101,29 +43,6 @@ export class ContactsService {
   }
 
   async addContact(addFormData) {
-    // this implementation is for local storage
-    // console.log(addFormData);
-    // let tempContact: Contact = {
-    //     id: this.generateUniqueId(),
-    //     firstName: this.capitalizeFirstLetter(addFormData.firstName),
-    // };
-    // if (addFormData.lastName !== "") {
-    //     tempContact.lastName = this.capitalizeFirstLetter(
-    //         addFormData.lastName
-    //     );
-    // }
-    // if (addFormData.contactNumber !== "") {
-    //     tempContact.contactNumber = addFormData.contactNumber;
-    // }
-    // if (addFormData.email !== "") {
-    //     tempContact.email = addFormData.email;
-    // }
-    // // console.log("Adding contact:");
-    // // console.log(tempContact);
-    // this.savedContacts.push(tempContact);
-    // this.savedContacts = this.sortContacts(this.savedContacts);
-
-    // this implementation is for firestore
     const tempContact: any = {
       firstName: this.capitalizeFirstLetter(addFormData.firstName),
     };
@@ -162,35 +81,12 @@ export class ContactsService {
       });
   }
 
-  // this implementation is for local storage
-  // // this function starts a counter at the current length of getAllContacts()
-  // // it increments the counter, and then checks if that id exists in current list of contacts
-  // // if it does, it increments and repeats the last step
-  // // if it doesn't, it returns this counter value
-  // // this primitive method ensures uniqueIds for a small number of contacts
-  // // this method will not be used once firebase backend will be able to assign uuids automatically
-  // private generateUniqueId() {
-  //     let uniqueId = this.getAllContacts().length;
-  //     do {
-  //         uniqueId++;
-  //     } while (this.getContactById(uniqueId) !== undefined);
-  //     return uniqueId.toString();
-  // }
-
   private capitalizeFirstLetter(s: string): string {
     if (typeof s !== 'string') return '';
     return (s.charAt(0).toUpperCase() + s.slice(1)).toString();
   }
 
   getContactById(contactId, isUserAnon): Observable<Contact> {
-    // this implementation is for local storage
-    // if (typeof contactId === "number") {
-    //     contactId = contactId.toString();
-    // }
-    // const contacts = this.savedContacts;
-    // return contacts.filter((contact) => contact.id === contactId)[0];
-
-    // this implementation is for firestore
     if (!isUserAnon) {
       if (typeof contactId === 'number') {
         contactId = contactId.toString();
@@ -210,57 +106,7 @@ export class ContactsService {
     }
   }
 
-  // this implementation is for local storage
-  // private sortContacts(contacts): Contact[] {
-  //     return contacts.sort((contactA, contactB) =>
-  //         contactA.firstName > contactB.firstName ? 1 : -1
-  //     );
-  //     // return this.savedContacts.sort((contactA, contactB) =>
-  //     //   contactA.firstName > contactB.firstName ? 1 : -1
-  //     // );
-  // }
-
   updateContact(contactId, editFormData): Observable<any> {
-    // // this implementation is for local storage
-    // const updateIndex = this.savedContacts.findIndex(
-    //     (c) => c.id === contactId.toString()
-    // );
-    // if (updateIndex < 0) {
-    //     return;
-    // }
-    // // console.log("Updating contact id: " + updateIndex);
-    // // console.log("Updating contact:");
-    // // console.log(this.savedContacts[updateIndex]);
-
-    // this.savedContacts[updateIndex].firstName = this.capitalizeFirstLetter(
-    //     editFormData.firstName
-    // );
-    // this.savedContacts[updateIndex].lastName = this.capitalizeFirstLetter(
-    //     editFormData.lastName
-    // );
-    // this.savedContacts[updateIndex].contactNumber =
-    //     editFormData.contactNumber;
-    // this.savedContacts[updateIndex].email = editFormData.email;
-    // // console.log("Updated contact:");
-    // // console.log(this.savedContacts[updateIndex]);
-
-    // this.savedContacts = this.sortContacts(this.savedContacts);
-
-    // this implementation is for firestore
-    // return from(
-    //     this.db
-    //         .collection("contacts")
-    //         .doc(contactId)
-    //         .update({
-    //             firstName: this.capitalizeFirstLetter(
-    //                 editFormData.firstName
-    //             ),
-    //             lastName: this.capitalizeFirstLetter(editFormData.lastName),
-    //             contactNumber: editFormData.contactNumber,
-    //             email: editFormData.email,
-    //         })
-    // );
-
     const tempContact: any = {
       firstName: this.capitalizeFirstLetter(editFormData.firstName),
     };
@@ -280,16 +126,6 @@ export class ContactsService {
   }
 
   deleteContact(contactId) {
-    // // this implementation is for local storage
-    // const deleteIndex = this.savedContacts.findIndex(
-    //     (c) => c.id === contactId.toString()
-    // );
-    // if (deleteIndex < 0) {
-    //     return;
-    // }
-    // this.savedContacts.splice(deleteIndex, 1);
-
-    // this implementation is for firestore
     this.db.collection('contacts').doc(contactId).delete();
   }
 }

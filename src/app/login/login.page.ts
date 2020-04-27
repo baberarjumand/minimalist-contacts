@@ -29,7 +29,7 @@ export class LoginPage implements OnInit {
     const alert = await this.alertController.create({
       header: 'Anonymous Login',
       message:
-        'Anonymous login has been enabled for demo purposes only.<br><br>If you choose to continue anonymously, no changes will be synced or saved to the database.<br><br>Do you wish to continue?',
+        'Anonymous login has been enabled for demo purposes only.<br><br>If you choose to continue anonymously, no changes will be synced or saved to the database and will be lost at the end of this session.<br><br>Do you wish to continue?',
       buttons: [
         {
           text: 'No',

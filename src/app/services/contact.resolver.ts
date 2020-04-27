@@ -25,16 +25,16 @@ export class ContactResolver implements Resolve<Contact> {
   ): Observable<Contact> {
     const contactId = route.paramMap.get('id');
 
-    const localContact$ = of(
-      this.localContactsService.getContactById(contactId)
-    );
+    // const localContact$ = of(
+    //   this.localContactsService.getContactById(contactId)
+    // );
     // const dbContact$ = this.contactsService.getContactById(contactId);
 
     return this.authService.isUserAnon().pipe(
       mergeMap((isUserAnon) =>
         iif(
           () => isUserAnon,
-          localContact$,
+          of(this.localContactsService.getContactById(contactId)),
           this.contactsService.getContactById(contactId, isUserAnon)
         )
       ),

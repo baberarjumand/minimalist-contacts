@@ -3,9 +3,10 @@ import { ContactsService } from '../services/contacts.service';
 import { Contact } from '../model/contact.model';
 import { LoadingController, AlertController } from '@ionic/angular';
 import { AuthService } from '../services/auth.service';
-import { map } from 'rxjs/operators';
+import { map, mergeMap, take } from 'rxjs/operators';
 import { Router } from '@angular/router';
 import { LocalContactService } from '../services/local-contact.service';
+import { iif, of } from 'rxjs';
 
 @Component({
   selector: 'app-all-contacts',
@@ -30,20 +31,41 @@ export class AllContactsPage implements OnInit {
       message: 'Fetching contacts...',
     });
     await loading.present();
-    this.authService.isUserAnon().subscribe((userStatus) => {
-      this.isUserAnon = userStatus;
-      if (this.isUserAnon) {
-        this.contacts = this.localContactsService.getAllContacts();
+
+    // this.authService.isUserAnon().subscribe((userStatus) => {
+    //   this.isUserAnon = userStatus;
+    //   if (this.isUserAnon) {
+    //     this.contacts = this.localContactsService.getAllContacts();
+    //     loading.dismiss();
+    //   } else if (this.isUserAnon != null && !this.isUserAnon) {
+    //     this.contactsService
+    //       .getAllContacts(this.isUserAnon)
+    //       .subscribe((contacts) => {
+    //         this.contacts = contacts;
+    //         loading.dismiss();
+    //       });
+    //   }
+    // });
+
+    this.authService
+      .isUserAnon()
+      .pipe(
+        mergeMap((userStatus) =>
+          iif(
+            () => {
+              this.isUserAnon = userStatus;
+              return userStatus;
+            },
+            of(this.localContactsService.getAllContacts()),
+            this.contactsService.getAllContacts(userStatus)
+          )
+        )
+      )
+      .subscribe((contacts) => {
+        this.contacts = contacts;
         loading.dismiss();
-      } else if (this.isUserAnon != null && !this.isUserAnon) {
-        this.contactsService
-          .getAllContacts(this.isUserAnon)
-          .subscribe((contacts) => {
-            this.contacts = contacts;
-            loading.dismiss();
-          });
-      }
-    });
+      });
+
     // this.contactsService
     //     .getContactById("aG5H3zvwJB2GQqJD1w7e")
     //     .subscribe((val) => console.log(val));

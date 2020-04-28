@@ -90,6 +90,24 @@ export class AuthService implements CanActivate {
     );
   }
 
+  getCurrentUserDetails(): Observable<User> {
+    return this.ngFireAuth.authState.pipe(
+      map((user) => {
+        if (user) {
+          const currentUserDetails: User = {
+            uid: user.uid,
+            email: user.email,
+            displayName: user.displayName,
+            photoURL: user.photoURL,
+            emailVerified: user.emailVerified,
+            isAnon: user.isAnonymous,
+          };
+          return currentUserDetails;
+        }
+      })
+    );
+  }
+
   isUserAnon(): Observable<boolean> {
     return this.ngFireAuth.authState.pipe(
       map((user) => {

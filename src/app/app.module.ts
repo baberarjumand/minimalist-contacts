@@ -16,6 +16,7 @@ import { ContactResolver } from './services/contact.resolver';
 
 import { AngularFireAuthModule } from '@angular/fire/auth';
 import { AngularFireDatabaseModule } from '@angular/fire/database';
+import { UserResolver } from './services/user.resolver';
 
 @NgModule({
   declarations: [AppComponent],
@@ -34,6 +35,7 @@ import { AngularFireDatabaseModule } from '@angular/fire/database';
     SplashScreen,
     { provide: RouteReuseStrategy, useClass: IonicRouteStrategy },
     ContactResolver,
+    UserResolver
   ],
   bootstrap: [AppComponent],
 })

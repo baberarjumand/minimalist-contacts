@@ -7,4 +7,67 @@
   </ion-toolbar>
 </ion-header>
 
-<ion-content> </ion-content>
+<ion-content>
+  <ion-grid fixed>
+    <ion-row>
+      <ion-col size="6" offset="3">
+        <ion-card-header class="ion-text-center">
+          <!-- <ion-img [src]="currentUser.photoURL"></ion-img> -->
+          <img [src]="currentUser.photoURL">
+          <!-- <ion-card-title>{{ currentUser.displayName }}</ion-card-title> -->
+        </ion-card-header>
+        <ion-card-content>
+          <ion-item *ngIf="currentUser.displayName">
+            <ion-icon
+              slot="start"
+              [ios]="'text-outline'"
+              [md]="'text-sharp'"
+            ></ion-icon>
+            <ion-label>{{ currentUser.displayName }}</ion-label>
+          </ion-item>
+          <ion-item *ngIf="currentUser.email">
+            <ion-icon
+              slot="start"
+              [ios]="'at-outline'"
+              [md]="'at-sharp'"
+            ></ion-icon>
+            <ion-label>{{ currentUser.email }}</ion-label>
+          </ion-item>
+          <div style="height: 5vh;"></div>
+          <ion-item *ngIf="!currentUser.emailVerified">
+            <ion-icon
+              slot="end"
+              [ios]="'close-cirlce-outline'"
+              [md]="'close-circle-sharp'"
+            ></ion-icon>
+            <ion-label>Email Verified?</ion-label>
+          </ion-item>
+          <ion-item *ngIf="currentUser.emailVerified">
+            <ion-icon
+              slot="end"
+              [ios]="'checkmark-cirlce-outline'"
+              [md]="'checkmark-circle-sharp'"
+            ></ion-icon>
+            <ion-label>Email Verified?</ion-label>
+          </ion-item>
+          <ion-item *ngIf="currentUser.isAnon">
+            <ion-icon
+              slot="end"
+              [ios]="'checkmark-cirlce-outline'"
+              [md]="'checkmark-circle-sharp'"
+            ></ion-icon>
+            <ion-label>Anonymous User?</ion-label>
+          </ion-item>
+          <ion-item *ngIf="!currentUser.isAnon">
+            <ion-icon
+              slot="end"
+              [ios]="'close-cirlce-outline'"
+              [md]="'close-circle-sharp'"
+            ></ion-icon>
+            <ion-label>Anonymous User?</ion-label>
+          </ion-item>
+        </ion-card-content>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+</ion-content>

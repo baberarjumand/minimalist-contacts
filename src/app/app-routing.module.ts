@@ -7,6 +7,7 @@ import {
   redirectUnauthorizedTo,
 } from '@angular/fire/auth-guard';
 import { canActivate } from '@angular/fire/auth-guard';
+import { UserResolver } from './services/user.resolver';
 
 const redirectLoggedInToContacts = () => redirectLoggedInTo(['all-contacts']);
 const redirectUnauthorizedToLogin = () => redirectUnauthorizedTo(['login']);
@@ -52,7 +53,10 @@ const routes: Routes = [
       import('./my-settings/my-settings.module').then(
         (m) => m.MySettingsPageModule
       ),
-    ...canActivate(redirectUnauthorizedToLogin),
+    // ...canActivate(redirectUnauthorizedToLogin),
+    resolve: {
+      userDetails: UserResolver,
+    },
   },
   {
     path: 'about-dev',

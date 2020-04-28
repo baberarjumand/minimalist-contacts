@@ -333,4 +333,58 @@
     --ion-color-shade: var(--ion-color-apple-shade);
     --ion-color-tint: var(--ion-color-apple-tint);
   }
+
+  :root {
+    --ion-color-linkedin: #0e76a8;
+    --ion-color-linkedin-rgb: 14, 118, 168;
+    --ion-color-linkedin-contrast: #ffffff;
+    --ion-color-linkedin-contrast-rgb: 255, 255, 255;
+    --ion-color-linkedin-shade: #0c6894;
+    --ion-color-linkedin-tint: #2684b1;
+  }
+
+  .ion-color-linkedin {
+    --ion-color-base: var(--ion-color-linkedin);
+    --ion-color-base-rgb: var(--ion-color-linkedin-rgb);
+    --ion-color-contrast: var(--ion-color-linkedin-contrast);
+    --ion-color-contrast-rgb: var(--ion-color-linkedin-contrast-rgb);
+    --ion-color-shade: var(--ion-color-linkedin-shade);
+    --ion-color-tint: var(--ion-color-linkedin-tint);
+  }
+
+  :root {
+    --ion-color-angularuni: #de1e19;
+    --ion-color-angularuni-rgb: 222, 30, 25;
+    --ion-color-angularuni-contrast: #ffffff;
+    --ion-color-angularuni-contrast-rgb: 255, 255, 255;
+    --ion-color-angularuni-shade: #c31a16;
+    --ion-color-angularuni-tint: #e13530;
+  }
+
+  .ion-color-angularuni {
+    --ion-color-base: var(--ion-color-angularuni);
+    --ion-color-base-rgb: var(--ion-color-angularuni-rgb);
+    --ion-color-contrast: var(--ion-color-angularuni-contrast);
+    --ion-color-contrast-rgb: var(--ion-color-angularuni-contrast-rgb);
+    --ion-color-shade: var(--ion-color-angularuni-shade);
+    --ion-color-tint: var(--ion-color-angularuni-tint);
+  }
+
+  :root {
+    --ion-color-academind: #fa923f;
+    --ion-color-academind-rgb: 250, 146, 63;
+    --ion-color-academind-contrast: #000000;
+    --ion-color-academind-contrast-rgb: 0, 0, 0;
+    --ion-color-academind-shade: #dc8037;
+    --ion-color-academind-tint: #fb9d52;
+  }
+
+  .ion-color-academind {
+    --ion-color-base: var(--ion-color-academind);
+    --ion-color-base-rgb: var(--ion-color-academind-rgb);
+    --ion-color-contrast: var(--ion-color-academind-contrast);
+    --ion-color-contrast-rgb: var(--ion-color-academind-contrast-rgb);
+    --ion-color-shade: var(--ion-color-academind-shade);
+    --ion-color-tint: var(--ion-color-academind-tint);
+  }
 }

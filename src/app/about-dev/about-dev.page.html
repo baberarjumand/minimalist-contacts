@@ -7,4 +7,100 @@
   </ion-toolbar>
 </ion-header>
 
-<ion-content> </ion-content>
+<ion-content>
+  <ion-grid fixed>
+    <ion-row>
+      <ion-col size-md="8" offset-md="2" class="ion-text-center">
+        <img src="../../assets/author.jpg" />
+        <ion-text>
+          <h1>Baber Arjumand</h1>
+          <p>
+            This mini-project was developed to showcase the basic functionalites
+            offered by Firebase and how they can be levaraged using the Ionic
+            framework.
+          </p>
+          <p>Connect with the author:</p>
+        </ion-text>
+        <ion-button
+          expand="block"
+          size="large"
+          class="ion-margin"
+          color="linkedin"
+          href="https://www.linkedin.com/in/baberarjumand/"
+          target="_blank"
+        >
+          <ion-icon
+            [ios]="'logo-linkedin'"
+            [md]="'logo-linkedin'"
+            slot="start"
+          ></ion-icon>
+          LinkedIn
+        </ion-button>
+        <ion-button
+          expand="block"
+          size="large"
+          class="ion-margin"
+          color="github"
+          href="https://github.com/baberarjumand"
+          target="_blank"
+        >
+          <ion-icon
+            [ios]="'logo-github'"
+            [md]="'logo-github'"
+            slot="start"
+          ></ion-icon>
+          GitHub
+        </ion-button>
+        <ion-button
+          expand="block"
+          size="large"
+          class="ion-margin"
+          color="danger"
+          href="mailto:baber.arjumand@gmail.com"
+          target="_blank"
+        >
+          <ion-icon
+            [ios]="'logo-google'"
+            [md]="'logo-google'"
+            slot="start"
+          ></ion-icon>
+          Email
+        </ion-button>
+        <ion-text>
+          <p>For offering awesome tutorials, special thanks to:</p>
+        </ion-text>
+        <ion-button
+          expand="block"
+          size="large"          
+          color="angularuni"
+          href="https://angular-university.io/"
+          target="_blank"
+          class="angularUniButton ion-margin"
+        >
+          <ion-icon
+            [ios]="'logo-angular'"
+            [md]="'logo-angular'"
+            slot="start"
+          ></ion-icon>
+          Angular University
+        </ion-button>
+        <ion-button
+          expand="block"
+          size="large"          
+          color="academind"
+          href="https://academind.com/"
+          target="_blank"
+          class="academindButton ion-margin"
+        >
+          <ion-icon
+            [ios]="'bookmark-outline'"
+            [md]="'bookmark-sharp'"
+            slot="start"
+          ></ion-icon>
+          Academind
+        </ion-button>
+        <div style="height: 5vh;"></div>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+</ion-content>

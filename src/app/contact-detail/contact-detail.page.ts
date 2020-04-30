@@ -21,17 +21,6 @@ export class ContactDetailPage implements OnInit {
   ) {}
 
   ngOnInit() {
-    // this.contactId = this.activatedRoute.snapshot.paramMap.get("id");
-    // if (!this.contactId) {
-    //     this.router.navigateByUrl("");
-    // }
-    // // this.currentContact = this.contactsService.getContactById(this.contactId);
-    // this.contactsService
-    //     .getContactById(this.contactId)
-    //     .subscribe((c) => (this.currentContact = c));
-    // if (!this.currentContact) {
-    //     this.router.navigateByUrl("");
-    // }
     this.currentContact = this.activatedRoute.snapshot.data.contact;
   }
 

@@ -18,11 +18,6 @@ const routes: Routes = [
     redirectTo: 'all-contacts',
     pathMatch: 'full',
   },
-  // {
-  //   path: 'folder/:id',
-  //   loadChildren: () =>
-  //     import('./folder/folder.module').then((m) => m.FolderPageModule),
-  // },
   {
     path: 'all-contacts',
     loadChildren: () =>
@@ -32,13 +27,6 @@ const routes: Routes = [
     // canActivate: [AngularFireAuthGuard],
     ...canActivate(redirectUnauthorizedToLogin),
   },
-  // {
-  //   path: "search-contacts",
-  //   loadChildren: () =>
-  //     import("./search-contacts/search-contacts.module").then(
-  //       m => m.SearchContactsPageModule
-  //     )
-  // },
   {
     path: 'add-contact',
     loadChildren: () =>
@@ -53,7 +41,6 @@ const routes: Routes = [
       import('./my-settings/my-settings.module').then(
         (m) => m.MySettingsPageModule
       ),
-    // ...canActivate(redirectUnauthorizedToLogin),
     resolve: {
       userDetails: UserResolver,
     },

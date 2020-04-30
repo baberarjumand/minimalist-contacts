@@ -20,35 +20,9 @@ import { map, takeLast, take } from 'rxjs/operators';
   providedIn: 'root',
 })
 export class AuthService implements CanActivate {
-  // this implementation was to test guards on test-page
-  // public loggedIn: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(
-  //   false
-  // );
-
-  // constructor(private router: Router) {}
-
-  // canActivate(route: ActivatedRouteSnapshot): boolean {
-  //   let currentAuthState;
-  //   this.loggedIn.subscribe((b) => (currentAuthState = b));
-  //   if (!currentAuthState) {
-  //     this.router.navigateByUrl('/all-contacts');
-  //     return false;
-  //   }
-  //   return true;
-  // }
-
-  // logIn() {
-  //   this.loggedIn.next(true);
-  // }
-
-  // logOut() {
-  //   this.loggedIn.next(false);
-  // }
-
   userData: any;
 
   canActivate() {
-    // return true;
     if (!this.isLoggedIn) {
       this.router.navigateByUrl('/login');
       return false;
@@ -77,7 +51,8 @@ export class AuthService implements CanActivate {
   // Returns true when user is looged in
   get isLoggedIn(): boolean {
     const user = JSON.parse(localStorage.getItem('user'));
-    return user !== null && user.emailVerified !== false ? true : false;
+    // return user !== null && user.emailVerified !== false ? true : false;
+    return user !== null;
   }
 
   getCurrentUserId(): Observable<string> {
@@ -129,7 +104,7 @@ export class AuthService implements CanActivate {
 
   signInAnonymously() {
     this.ngFireAuth
-      .setPersistence(firebase.auth.Auth.Persistence.LOCAL)
+      .setPersistence(firebase.auth.Auth.Persistence.SESSION)
       .then(() => {
         return this.ngFireAuth
           .signInAnonymously()

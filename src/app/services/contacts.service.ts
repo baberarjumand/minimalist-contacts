@@ -58,13 +58,6 @@ export class ContactsService {
     if (addFormData.email !== '' && addFormData.email !== undefined) {
       tempContact.email = addFormData.email;
     }
-    // console.log(tempContact);
-
-    // this.authService.getCurrentUserId().subscribe((currentUserId) => {
-    //   if (currentUserId) {
-    //     tempContact.uid = currentUserId;
-    //   }
-    // });
 
     tempContact.uid = this.currentUserId;
 
@@ -76,7 +69,6 @@ export class ContactsService {
       .collection('contacts')
       .add(tempContact)
       .then((ref) => {
-        // console.log("Added record with ID: " + ref.id);
         loading.dismiss();
       });
   }
@@ -120,7 +112,6 @@ export class ContactsService {
       tempContact.email = editFormData.email;
     }
     tempContact.uid = this.currentUserId;
-    // console.log(tempContact);
 
     return from(this.db.collection('contacts').doc(contactId).set(tempContact));
   }

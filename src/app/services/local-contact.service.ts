@@ -32,7 +32,6 @@ export class LocalContactService {
   }
 
   addContact(addFormData) {
-    // console.log(addFormData);
     const tempContact: Contact = {
       id: this.generateUniqueId(),
       firstName: this.capitalizeFirstLetter(addFormData.firstName),
@@ -46,8 +45,7 @@ export class LocalContactService {
     if (addFormData.email !== '') {
       tempContact.email = addFormData.email;
     }
-    // console.log("Adding contact:");
-    // console.log(tempContact);
+
     this.savedContacts.push(tempContact);
     this.savedContacts = this.sortContacts(this.savedContacts);
   }
@@ -56,9 +54,6 @@ export class LocalContactService {
     return contacts.sort((contactA, contactB) =>
       contactA.firstName > contactB.firstName ? 1 : -1
     );
-    // return this.savedContacts.sort((contactA, contactB) =>
-    //   contactA.firstName > contactB.firstName ? 1 : -1
-    // );
   }
 
   getAllContacts() {
@@ -99,9 +94,6 @@ export class LocalContactService {
     if (updateIndex < 0) {
       return;
     }
-    // console.log("Updating contact id: " + updateIndex);
-    // console.log("Updating contact:");
-    // console.log(this.savedContacts[updateIndex]);
 
     this.savedContacts[updateIndex].firstName = this.capitalizeFirstLetter(
       editFormData.firstName
@@ -111,8 +103,6 @@ export class LocalContactService {
     );
     this.savedContacts[updateIndex].contactNumber = editFormData.contactNumber;
     this.savedContacts[updateIndex].email = editFormData.email;
-    // console.log("Updated contact:");
-    // console.log(this.savedContacts[updateIndex]);
 
     this.savedContacts = this.sortContacts(this.savedContacts);
   }

@@ -14,6 +14,5 @@ export class MySettingsPage implements OnInit {
 
   ngOnInit() {
     this.currentUser = this.activatedRoute.snapshot.data.userDetails;
-    console.log(this.currentUser);
   }
 }

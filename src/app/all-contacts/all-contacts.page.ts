@@ -32,21 +32,6 @@ export class AllContactsPage implements OnInit {
     });
     await loading.present();
 
-    // this.authService.isUserAnon().subscribe((userStatus) => {
-    //   this.isUserAnon = userStatus;
-    //   if (this.isUserAnon) {
-    //     this.contacts = this.localContactsService.getAllContacts();
-    //     loading.dismiss();
-    //   } else if (this.isUserAnon != null && !this.isUserAnon) {
-    //     this.contactsService
-    //       .getAllContacts(this.isUserAnon)
-    //       .subscribe((contacts) => {
-    //         this.contacts = contacts;
-    //         loading.dismiss();
-    //       });
-    //   }
-    // });
-
     this.authService
       .isUserAnon()
       .pipe(
@@ -65,10 +50,6 @@ export class AllContactsPage implements OnInit {
         this.contacts = contacts;
         loading.dismiss();
       });
-
-    // this.contactsService
-    //     .getContactById("aG5H3zvwJB2GQqJD1w7e")
-    //     .subscribe((val) => console.log(val));
   }
 
   instaAddRandomContacts() {

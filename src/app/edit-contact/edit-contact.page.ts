@@ -31,17 +31,8 @@ export class EditContactPage implements OnInit, OnDestroy {
   ) {}
 
   ngOnInit() {
-    // this.contactId = this.activatedRoute.snapshot.paramMap.get("id");
-    // if (!this.contactId) {
-    //     this.router.navigateByUrl("");
-    // }
-
-    // // this.currentContact = this.contactsService.getContactById(this.contactId);
-    // this.contactsService.getContactById(this.contactId).subscribe((c) => {
-    //     this.currentContact = c;
-    // });
     this.currentContact = this.activatedRoute.snapshot.data.contact;
-    // if (this.currentContact) {
+
     this.editFormGroup = this.formBuilder.group({
       firstName: [
         this.currentContact.firstName,
@@ -65,10 +56,6 @@ export class EditContactPage implements OnInit, OnDestroy {
       ],
       email: [this.currentContact.email, Validators.email],
     });
-    // console.log(this.currentContact);
-    // } else {
-    // this.router.navigateByUrl("");
-    // }
     this.tempSub = this.authService
       .isUserAnon()
       .subscribe((userStatus) => (this.isAnonUser = userStatus));
@@ -109,7 +96,6 @@ export class EditContactPage implements OnInit, OnDestroy {
         {
           text: 'Yes',
           handler: () => {
-            // console.log("Confirm delete contact id: " + this.currentContact.id);
             if (this.isAnonUser) {
               this.localContactsService.deleteContact(this.currentContact.id);
             } else {

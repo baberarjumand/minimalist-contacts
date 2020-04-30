@@ -35,7 +35,7 @@ import { UserResolver } from './services/user.resolver';
     SplashScreen,
     { provide: RouteReuseStrategy, useClass: IonicRouteStrategy },
     ContactResolver,
-    UserResolver
+    UserResolver,
   ],
   bootstrap: [AppComponent],
 })

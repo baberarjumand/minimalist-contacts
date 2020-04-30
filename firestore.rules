@@ -1,0 +1,54 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+
+    // This rule allows anyone on the internet to view, edit, and delete
+    // all data in your Firestore database. It is useful for getting
+    // started, but it is configured to expire after 30 days because it
+    // leaves your app open to attackers. At that time, all client
+    // requests to your Firestore database will be denied.
+    //
+    // Make sure to write security rules for your app before that time, or else
+    // your app will lose access to your Firestore database
+    // match /{document=**} {
+    //   allow read, write: if request.time < timestamp.date(2020, 5, 19);
+    // }
+    
+    function isNotAnonymous() {
+    	return request.auth.token.firebase.sign_in_provider != 'anonymous'
+    }    
+    
+    function isReadingOwnRecord() {
+    	return resource.data.uid == request.auth.uid;
+    }
+    
+    function isCreatingOwnRecord() {
+    	return request.resource.data.uid == request.auth.uid;
+    }
+    
+    function isUpdatingOwnRecord() {
+    	return request.resource.data.uid == resource.data.uid
+      	&& request.resource.data.uid == request.auth.uid;
+    }
+    
+    function isDeletingOwnRecord() {
+    	return request.auth.uid == resource.data.uid;
+    }
+    
+    function docUidMatchesUserId() {
+    	return request.resource.data.uid == request.auth.uid;
+    }
+    
+    match /contacts/{contactId} {
+    	// allow read, write: if request.time < timestamp.date(2020, 5, 19);
+      allow read: if isNotAnonymous() && isReadingOwnRecord();
+      allow create: if isNotAnonymous() && isCreatingOwnRecord();
+      allow update: if isNotAnonymous() && isUpdatingOwnRecord();
+      allow delete: if isNotAnonymous() && isDeletingOwnRecord();
+    }
+    
+    match /users/{userId} {
+    	allow create: if isNotAnonymous() && docUidMatchesUserId();
+    }
+  }
+}
